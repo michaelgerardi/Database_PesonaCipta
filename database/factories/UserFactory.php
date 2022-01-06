@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Hash;
 class UserFactory extends Factory
 {
     /**
@@ -15,11 +15,22 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'nip' => '321202147',
+            'nama_karyawan' => 'Alfon Pelita',
+            'jenis_kelamin' => '1',
+            'no_ktp' => '12377213823000001',
+            'no_kk' => '98262157823220001',
+            'status' => '1',
+            'jml_tanggungan' => '3',
+            'alamat' => 'Jalan Kabupaten No 31',
+            'umur' => '34',
+            'tgl_lahir' => '1987-10-22',
+            'npwp' => '125896526400993',
+            'no_rek' => '5698741236',
+            'email' => 'alfonganteng@gmail.com',
+            'no_bpjs' => '1257190023445',
+            'password' => Hash::make('123456789'),
+            'id_jabatan' => '2',
         ];
     }
 
