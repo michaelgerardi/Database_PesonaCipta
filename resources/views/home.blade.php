@@ -20,4 +20,16 @@
         </div>
     </div>
 </div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card" style="width: 18rem;">
+            <img src="" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">Tambah Karyawan</h5>
+                    <a href="/addkaryawan" class="btn btn-primary">Tambah</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

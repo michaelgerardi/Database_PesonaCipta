@@ -33,6 +33,7 @@ class User extends Authenticatable
         'email',
         'no_bpjs',
         'password',
+        'masa_jabatan',
         'id_jabatan',
     ];
 
