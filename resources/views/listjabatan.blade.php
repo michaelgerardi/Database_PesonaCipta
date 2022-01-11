@@ -10,7 +10,6 @@
                 <tr>
                     <th scope="col">Nomor</th>
                     <th scope="col">Golongan Jabatan</th>
-                    <th scope="col">Masa Jabatan</th>
                 </tr>
             </thead>
         </table>

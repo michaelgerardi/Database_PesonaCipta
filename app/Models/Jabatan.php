@@ -9,8 +9,10 @@ class Jabatan extends Model
 {
     use HasFactory;
 
+    protected $table = "jabatan";
+
     protected $fillable = [
         'gol_jabatan',
-        'masa_jabatan',
     ];
+
 }

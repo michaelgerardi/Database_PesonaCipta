@@ -114,13 +114,6 @@
         </div>
 
         <div class="form-group row">
-            <label for="jabatan" class="col-sm-2 col-form-label"><b>Nomor BPJS</b></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="no_bpjs" id="no_bpjs" placeholder="Isi dengan nomor BPJS karyawan">
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label for="masajabatan" class="col-sm-2 col-form-label"><b>Masa Jabatan</b></label>
             <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example" name="masa_jabatan" id="masa_jabatan">
@@ -160,7 +153,7 @@
                 </select>
             </div>
         </div>
-        
+
         <div class="form-group row">
             <div class="col-sm-10">
                 <input type="submit" class="btn btn-primary" value="Create">

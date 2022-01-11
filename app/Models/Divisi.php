@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Divisi extends Model
 {
     use HasFactory;
-    protected $table = [
-        'divisi'
+
+    protected $table = "divisi";
+
+    protected $fillable = [
+        'divisi',
     ];
 }

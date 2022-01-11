@@ -42,71 +42,137 @@
               </script>
 
             <div class="container">
-                <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            Test
+                @auth
+                    @if (Auth::user()->id_jabatan == 4)
+                    <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                Test
+                            </div>
                         </div>
-                    </div>
-                    <a href="/home" img src="/open-iconic/svg/people.svg" alt="icon name">Home</a>
-                    <a href="#">Karyawan</a>
-                    <a href="#">Setting</a>
-                    <a href="#">Resign</a>
-                  </div>
+                        <a href="/home" img src="/open-iconic/svg/people.svg" alt="icon name">Home</a>
+                        <a href="/profileadmin">Karyawan</a>
+                        <a href="#">Setting</a>
+                        <a href="#">Resign</a>
+                      </div>
 
-                  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-                <a class="navbar-brand ml-2" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Sional') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                    <a class="navbar-brand ml-2" href="{{ url('/home') }}">
+                        {{ config('app.name', 'Sional') }}
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav me-auto">
 
-                    </ul>
+                        </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/cusLogin') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Authentication Links -->
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ url('/cusLogin') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->nama_karyawan }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->nama_karyawan }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                                @else
+                                    <div id="mySidenav" class="sidenav">
+                                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                        <div class="card" style="width: 18rem;">
+                                            <div class="card-body">
+                                                Test
+                                            </div>
+                                        </div>
+                                        <a href="/home" img src="/open-iconic/svg/people.svg" alt="icon name">Home</a>
+                                        <a href="#">Karyawan</a>
+                                        <a href="#">Setting</a>
+                                        <a href="#">Resign</a>
+                                    </div>
+
+                                    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                                    <a class="navbar-brand ml-2" href="{{ url('/home') }}">
+                                        {{ config('app.name', 'Sional') }}
+                                    </a>
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <!-- Left Side Of Navbar -->
+                                        <ul class="navbar-nav me-auto">
+
+                                        </ul>
+
+                                        <!-- Right Side Of Navbar -->
+                                        <ul class="navbar-nav ms-auto">
+                                            <!-- Authentication Links -->
+                                            @guest
+                                                @if (Route::has('login'))
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="{{ url('/cusLogin') }}">{{ __('Login') }}</a>
+                                                    </li>
+                                                @endif
+
+                                                @if (Route::has('register'))
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                                    </li>
+                                                @endif
+                                            @else
+                                                <li class="nav-item dropdown">
+                                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                        {{ Auth::user()->nama_karyawan }}
+                                                    </a>
+
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault();
+                                                                        document.getElementById('logout-form').submit();">
+                                                            {{ __('Logout') }}
+                                                        </a>
+
+                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                            @csrf
+                                                        </form>
+                                                    </div>
+                                                </li>
+                                            @endguest
+                                        @endif
+                                @endauth
+                                    </ul>
                                 </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                            </div>
+                        </nav>
 
         <main class="py-4">
             @yield('content')

@@ -30,7 +30,9 @@ class UserFactory extends Factory
             'email' => 'alfonganteng@gmail.com',
             'no_bpjs' => '1257190023445',
             'password' => Hash::make('123456789'),
-            'id_jabatan' => '2',
+            'masa_jabatan' => '6',
+            'id_jabatan' => '4',
+            'id_divisi' => '1'
         ];
     }
 

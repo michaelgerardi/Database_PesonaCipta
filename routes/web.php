@@ -22,5 +22,9 @@ Route::get('/cusLogin', [App\Http\Controllers\Auth\CustomLoginController::class,
 Route::post('/customlogin', [App\Http\Controllers\Auth\CustomLoginController::class, 'login'])->name('customlogin');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Admin
+Route::get('/profileadmin', [App\Http\Controllers\AdminController::class, 'index'])->name('profileadmin');
+Route::get('/editprofadmin/{id}', [App\Http\Controllers\AdminController::class, 'editAdmin'])->name('formeditadmin');
+
 //Karyawan
 Route::get('/addkaryawan', [App\Http\Controllers\KaryawanController::class, 'formAddKar'])->name('home');
