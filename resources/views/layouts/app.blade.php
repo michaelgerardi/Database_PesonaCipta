@@ -17,6 +17,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/totalgaji.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -52,9 +53,9 @@
                             </div>
                         </div>
                         <a href="/home" img src="/open-iconic/svg/people.svg" alt="icon name">Home</a>
-                        <a href="/profileadmin">Karyawan</a>
-                        <a href="#">Setting</a>
-                        <a href="#">Resign</a>
+                        <a href="/datakar">Karyawan</a>
+                        <a href="/profileadmin">Setting</a>
+                        {{-- <a href="#">Resign</a> --}}
                       </div>
 
                       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>

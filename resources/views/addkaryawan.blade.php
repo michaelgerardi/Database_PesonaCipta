@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- <form action="{{ route('') }}" method="post" enctype='multipart/form-data'> --}}
-@php echo csrf_field() @endphp
+<form action="{{ route('addDataKar') }}" method="post" enctype='multipart/form-data'>
+@csrf
 <div class="container">
     <br>
     <h3>Tambah Data Karyawan</h3>
@@ -114,6 +114,13 @@
         </div>
 
         <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label"><b>Password</b></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="password" id="password" placeholder="Isi dengan password default 123456789">
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label for="masajabatan" class="col-sm-2 col-form-label"><b>Masa Jabatan</b></label>
             <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example" name="masa_jabatan" id="masa_jabatan">
@@ -131,12 +138,12 @@
         <div class="form-group row">
             <label for="jabatan" class="col-sm-2 col-form-label"><b>Golongan Jabatan</b></label>
             <div class="col-sm-10">
-                <select class="form-select" aria-label="Default select example" name="gol_jabatan" id="gol_jabatan">
+                <select class="form-select" aria-label="Default select example" name="id_jabatan" id="id_jabatan">
                     <option selected>Pilih Golongan Jabatan</option>
-                    <option value="manajer">Manajer</option>
-                    <option value="supervisor">Supervisor</option>
-                    <option value="karyawan">Karyawan</option>
-                    <option value="admin">Admin</option>
+                    <option value="1">Manajer</option>
+                    <option value="2">Supervisor</option>
+                    <option value="3">Karyawan</option>
+                    <option value="4">Admin</option>
                 </select>
             </div>
         </div>
@@ -144,12 +151,12 @@
         <div class="form-group row">
             <label for="divisi" class="col-sm-2 col-form-label"><b>Divisi</b></label>
             <div class="col-sm-10">
-                <select class="form-select" aria-label="Default select example" name="divisi" id="divisi">
+                <select class="form-select" aria-label="Default select example" name="id_divisi" id="id_divisi">
                     <option selected>Pilih Divisi Karyawan</option>
-                    <option value="keuangan">Keuangan</option>
-                    <option value="hr">Human Resource</option>
-                    <option value="lapangan">Lapangan</option>
-                    <option value="staff">Staff</option>
+                    <option value="1">Keuangan</option>
+                    <option value="2">Human Resource</option>
+                    <option value="3">Lapangan</option>
+                    <option value="4">Staff</option>
                 </select>
             </div>
         </div>

@@ -35,6 +35,7 @@ class User extends Authenticatable
         'password',
         'masa_jabatan',
         'id_jabatan',
+        'id_divisi',
     ];
 
     /**
