@@ -6,6 +6,7 @@
         <h3>History Gaji Pegawai</h3>
         <br>
 
+        <a href="{{route('downloaddatagaji')}}" type="button" class="btn btn-warning">Download Gaji</a>
         <table class="table">
             <thead class="thead">
                 <tr>
@@ -22,10 +23,15 @@
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nip')}}</td>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nama_karyawan')}}</td>
-                        <td>{{DB::table('history_gaji')->where('id',$gj->id)->value('status')}}</td>
+                        @if (DB::table('history_gaji')->where('id',$gj->id)->value('status')==1)
+                            <td>Sudah Digaji</td>
+                            @else
+                                <td>Belum Digaji</td>
+                        @endif
                         <td>
-                            <a href="" type="button" class="btn btn-primary">Tambah</a>
-                            <a href="" type="button" class="btn btn-warning">Edit</a>
+                            <a href="{{route('formaddgajikar',['id' => $gj->id])}}" type="button" class="btn btn-primary">Tambah</a>
+                            <a href="{{route('formeditgajikar',['id' => $gj->id])}}" type="button" class="btn btn-warning">Edit</a>
+                            <a href="{{route('formaddpaklarin',['id' => $gj->id])}}" type="button" class="btn btn-info">Paklarin</a>
                         </td>
                     </tr>
                 </tbody>

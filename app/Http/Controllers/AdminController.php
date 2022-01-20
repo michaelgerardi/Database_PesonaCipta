@@ -53,6 +53,12 @@ class AdminController extends Controller
         return redirect('/profileadmin');
     }
 
+    public function historyGaji()
+    {
+        $gaji = User::all();
+        return view('historygaji',compact('gaji'));
+    }
+
     public function formGaji($id)
     {
         $karyawan = User::where('id',$id)->first();
@@ -81,14 +87,52 @@ class AdminController extends Controller
         return redirect('/datakar');
     }
 
-    public function historyGaji()
+    public function formEditGaji($id)
     {
-        $admin = User::where('id',Auth::User()->id)->first();
-        return view ('profileadmin',compact('id_jabatan','admin','id_divisi'));
+        $id_kar = Data_Gaji::where('id',$id)->value('id_karyawan');
+        $user = User::where('id',$id_kar)->first();
+        $gaji = Data_Gaji::where('id',$id)->first();
+        return view('editgajikar', compact('user','gaji'));
+        //return $gaji;
     }
 
-    public function export() 
+    public function editGaji(Request $request)
+    {
+        $id = User::where('id',$request->id)->value('id');
+        DB::table('data_gaji')->where('id',$request->id_gaji_karyawan)->update([
+            'id_karyawan'=>$request->id,
+            'gaji_pokok'=>$request->gaji_pokok,
+            'gaji_tunjangan'=>$request->gaji_tunjangan,
+            'thr'=>$request->thr,
+            'bpjs'=>$request->bpjs,
+        ]);
+        $id_gaji = Data_Gaji::where('id_karyawan',$request->id)->latest('created_at')->value('id');
+        DB::table('history_gaji')->where('id_gaji_karyawan',$request->id_gaji_karyawan)->update([
+            'tanggal_gaji'=>$request->tanggal_gaji,
+            'status'=> '1',
+            'id_gaji_karyawan'=>$id_gaji //kiri masuk ke kolom tabel, kanan data inputan
+        ]);
+
+        return redirect('/historygaji');
+    }
+
+    public function export()
     {
         return Excel::download(new DataGajiExport, 'data_gaji.xlsx');
+    }
+
+    //Data Paklarin
+    public function paklarin($id)
+    {
+        $user = User::where('id',$id)->first();
+        return view('formpaklarin',compact('user'));
+        // return $user;
+    }
+
+    //Kontrak Kerja
+    public function kontrakKerja($id)
+    {
+        $user = User::where('id'.$id)->first();
+        return view('formkontrakkerja',compact('user'));
     }
 }

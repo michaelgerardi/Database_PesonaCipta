@@ -33,6 +33,19 @@ Route::get('/datakar', [App\Http\Controllers\KaryawanController::class, 'indexKa
 Route::get('/addkaryawan', [App\Http\Controllers\KaryawanController::class, 'formAddKar'])->name('formaddkar');
 Route::post('/addkaryawan/addKar', [App\Http\Controllers\KaryawanController::class, 'addKar'])->name('addDataKar');
 
+Route::get('/historygaji', [App\Http\Controllers\AdminController::class, 'historyGaji'])->name('historyGaji');
+
 Route::get('/addgajikar/{id}', [App\Http\Controllers\AdminController::class, 'formGaji'])->name('formaddgajikar');
 Route::post('/addgajikar/addGaji', [App\Http\Controllers\AdminController::class, 'addGaji'])->name('addgajikar');
+
+Route::get('/editgajikar/{id}', [App\Http\Controllers\AdminController::class, 'formEditGaji'])->name('formeditgajikar');
+
+Route::post('/editgajikar/editGaji', [App\Http\Controllers\AdminController::class, 'editGaji'])->name('editgajikar');
+
 Route::get('historygaji/export/',[App\Http\Controllers\AdminController::class, 'export'])->name('downloaddatagaji');
+
+//Paklarin
+Route::get('/formpaklarin/{id}', [App\Http\Controllers\AdminController::class, 'paklarin'])->name('formaddpaklarin');
+
+//Kontrak Kerja
+Route::get('/formkontrakkerja/{id}', [App\Http\Controllers\AdminController::class, 'kontrakKerja'])->name('formaddkontrakkerja');

@@ -18,7 +18,7 @@
                     <img src="" class="card-img-top" alt="">
                     <div class="card-body">
                         <h5 class="card-title">Data Gaji Karyawan</h5>
-                            <a href="#" class="btn btn-primary">Lihat</a>
+                            <a href="{{route('historyGaji')}}" class="btn btn-primary">Lihat</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
 
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                    <img src="image/People_Logo.png" class="card-img-top" style="width:140px; height:145px">
+                    <img src="image/People_Logo.png" class="card-img-top" style="width:90px; height:90px">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Karyawan</h5>
                         <p class="card-text">Klik tombol "Tambah" untuk menambahkan akun karyawan baru</p>

@@ -7,9 +7,6 @@
         <br>
 
         <a href="{{route('downloaddatakar')}}" type="button" class="btn btn-primary">Download</a>
-
-        <a href="{{route('downloaddatagaji')}}" type="button" class="btn btn-warning">Download Gaji</a>
-
         <br>
         <table class="table">
             <thead class="thead">
@@ -35,7 +32,6 @@
                         <td>
                             <a href="" type="button" class="btn btn-primary">Detail</a>
                             <a href="" type="button" class="btn btn-warning">Edit</a>
-                            <a href="{{route('formaddgajikar',['id' => $kar->id])}}" type="button" class="btn btn-info">Payroll</a>
                         </td>
                     </tr>
                 </tbody>
