@@ -9,8 +9,11 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Jabatan;
 use App\Models\Divisi;
 use App\Models\Data_Gaji;
+use App\Models\Lokasi_Kerja;
+use App\Models\Kontrak_Kerja;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class AdminController extends Controller
 {
@@ -121,18 +124,79 @@ class AdminController extends Controller
         return Excel::download(new DataGajiExport, 'data_gaji.xlsx');
     }
 
-    //Data Paklarin
-    public function paklarin($id)
+    //Lokasi Kerja
+    public function lokKerja()
     {
-        $user = User::where('id',$id)->first();
-        return view('formpaklarin',compact('user'));
-        // return $user;
+        $lokkerja = Lokasi_Kerja::all();
+        return view ('lokkerja',compact('lokkerja'));
+    }
+
+    public function formAddLK()
+    {
+        return view('formlokasiker');
+    }
+
+    public function addLokKerja(Request $request)
+    {
+        // $id_karyawan = Auth::user()->id;
+        $id = Lokasi_Kerja::where('id',$request->id)->value('id');
+        DB::table('lokasi_kerja')->insert([
+            'nama_lokasi'=>$request->nama_lokasi,
+            'alamat_lokasi'=>$request->alamat_lokasi,
+            'kode_pos'=>$request->kode_pos,
+            'no_telp'=>$request->no_tlp,
+            'fax'=>$request->fax,
+        ]);
+        return redirect('/lokkerja');
     }
 
     //Kontrak Kerja
     public function kontrakKerja($id)
     {
-        $user = User::where('id'.$id)->first();
+        $user = User::where('id',$id)->first();
         return view('formkontrakkerja',compact('user'));
+        // return $user;
+    }
+
+    public function addKontrakKerja(Request $request)
+    {
+        DB::table('kontrak_kerja')->insert([
+            'nilai_kontrak'=>$request->nilai_kontrak,
+            'awal_kontrak'=>$request->awal_kontrak,
+            'akhir_kontrak'=>$request->akhir_kontrak,
+            'durasi_kontrak'=>$request->durasi_kontrak,
+            'id_lokasi_kerja'=>$request->id_lokasi_kerja,
+            'id_karyawan'=>$request->id_karyawan
+        ]);
+        return redirect('/datakar');
+    }
+
+    //Data Paklarin
+    public function paklarin($id)
+    {
+        $user = User::where('id',$id)->first();
+        // $konker = Kontrak_Kerja::where('id',$id)->first();
+        return view('formpaklarin',compact('user'));
+        // return $user;
+    }
+
+    public function addDataPak(Request $request)
+    {
+        DB::table('data_paklarin')->insert([
+            'nama_karyawan'=>$request->nama_karyawan,
+            'no_ktp'=>$request->no_ktp,
+            'tgl_awal_kerja'=>$request->tgl_awal_kerja,
+            'tgl_akhir_kerja'=>$request->tgl_akhir_kerja,
+            'no_bpjs'=>$request->no_bpjs,
+            'id_karyawan'=>$request->id_karyawan,
+            'id_kontrak_kerja'=>$request->id_kontrak_kerja
+        ]);
+        return redirect('/datakar');
+    }
+
+    public function downDataPak($data)
+    {
+        $pdf = PDF::loadView('pdf.invoice', $data);
+        return $pdf->download('invoice.pdf');
     }
 }

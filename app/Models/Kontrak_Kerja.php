@@ -16,6 +16,7 @@ class Kontrak_Kerja extends Model
         'akhir_kontrak',
         'durasi_kontrak',
         'lokasi',
-        'id_karyawan'
+        'id_karyawan',
+        'id_kontrak_kerja'
     ];
 }

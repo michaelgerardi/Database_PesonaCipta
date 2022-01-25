@@ -56,29 +56,65 @@
         </div>
         @else
             <br>
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <img src="image/test.png" class="d-block w-100" alt="...">
-                    </div>
-                        <div class="carousel-item">
+            <div class="container">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
                         <img src="image/test.png" class="d-block w-100" alt="...">
                         </div>
                             <div class="carousel-item">
                             <img src="image/test.png" class="d-block w-100" alt="...">
                             </div>
+                                <div class="carousel-item">
+                                <img src="image/test.png" class="d-block w-100" alt="...">
+                                </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-                </button>
+            <br>
+            <h3><b>Selamat Datang {{Auth::user()->nama_karyawan}}</b></h3>
+            <br>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Absensi</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman absensi</p>
+                            <a href="{{route('formaddkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Gaji</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman penggajian</p>
+                            <a href="{{route('formaddkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Rawon</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman anjing rawon</p>
+                            <a href="{{route('formaddkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        <br>
-        <h3><b>Selamat Datang {{Auth::user()->nama_karyawan}}</b></h3>
+
+            </div>
         @endif
 </div>
 <script>

@@ -44,8 +44,19 @@ Route::post('/editgajikar/editGaji', [App\Http\Controllers\AdminController::clas
 
 Route::get('historygaji/export/',[App\Http\Controllers\AdminController::class, 'export'])->name('downloaddatagaji');
 
-//Paklarin
-Route::get('/formpaklarin/{id}', [App\Http\Controllers\AdminController::class, 'paklarin'])->name('formaddpaklarin');
+//Lokasi Kerja
+Route::get('/lokkerja', [App\Http\Controllers\AdminController::class, 'lokKerja'])->name('lokkerja');
+
+Route::get('/formlokasiker', [App\Http\Controllers\AdminController::class, 'formAddLK'])->name('formaddlokkerja');
+
+Route::post('/formlokasiker/addLokKerja', [App\Http\Controllers\AdminController::class, 'addLokKerja'])->name('addLK');
 
 //Kontrak Kerja
 Route::get('/formkontrakkerja/{id}', [App\Http\Controllers\AdminController::class, 'kontrakKerja'])->name('formaddkontrakkerja');
+
+Route::post('/formkontrakkerja/addKontrakKerja', [App\Http\Controllers\AdminController::class, 'addKontrakKerja'])->name('addkonker');
+
+//Paklarin
+Route::get('/formpaklarin/{id}', [App\Http\Controllers\AdminController::class, 'paklarin'])->name('formpaklarin');
+
+Route::post('/formpaklarin/addDataPak', [App\Http\Controllers\AdminController::class, 'addDataPak'])->name('adddatapak');
