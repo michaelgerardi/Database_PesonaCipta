@@ -60,6 +60,7 @@ class AdminController extends Controller
     {
         $gaji = User::all();
         return view('historygaji',compact('gaji'));
+        // return $gaji;
     }
 
     public function formGaji($id)
@@ -71,7 +72,7 @@ class AdminController extends Controller
 
     public function addGaji(Request $request)
     {
-        // $id_karyawan = Auth::user()->id;
+        $id_karyawan = Auth::user()->id;
         $id = User::where('id',$request->id)->value('id');
         DB::table('data_gaji')->insert([
             'id_karyawan'=>$request->id,
@@ -87,16 +88,16 @@ class AdminController extends Controller
             'id_gaji_karyawan'=>$id_gaji //kiri masuk ke kolom tabel, kanan data inputan
         ]);
 
-        return redirect('/datakar');
+        return redirect('/historygaji');
     }
 
     public function formEditGaji($id)
     {
-        $id_kar = Data_Gaji::where('id',$id)->value('id_karyawan');
-        $user = User::where('id',$id_kar)->first();
-        $gaji = Data_Gaji::where('id',$id)->first();
+        // $id_kar = Data_Gaji::where('id',$id)->value('id_karyawan');
+        $user = User::where('id',$id)->first();
+        $gaji = Data_Gaji::where('id_karyawan',$id)->first();
         return view('editgajikar', compact('user','gaji'));
-        //return $gaji;
+        // return $user;
     }
 
     public function editGaji(Request $request)

@@ -23,15 +23,28 @@
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nip')}}</td>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nama_karyawan')}}</td>
-                        @if (DB::table('history_gaji')->where('id',$gj->id)->value('status')==1)
+                        {{-- @if (DB::table('history_gaji')->where('id',$gj->id)->value('status')==1)
                             <td>Sudah Digaji</td>
                             @else
                                 <td>Belum Digaji</td>
+                        @endif --}}
+
+                        @if (DB::table('history_gaji')->where('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('id'))->value('status')==1)
+                            <td>Sudah Digaji</td>
+                            @else 
+                            <td>Belum Digaji</td>
                         @endif
                         <td>
                             <a href="{{route('formaddgajikar',['id' => $gj->id])}}" type="button" class="btn btn-primary">Tambah</a>
-                            <a href="{{route('formeditgajikar',['id' => $gj->id])}}" type="button" class="btn btn-warning">Edit</a>
-                            <a href="{{route('formaddpaklarin',['id' => $gj->id])}}" type="button" class="btn btn-info">Paklarin</a>
+                            {{--  --}}
+                            @if (DB::table('history_gaji')->where('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('id'))->value('status')==1)
+                                <a href="{{route('formeditgajikar',['id' => $gj->id])}}" type="button" class="btn btn-warning">Edit</a>
+                            @else 
+                                <button href="{{route('formeditgajikar',['id' => $gj->id])}}" type="button" class="btn btn-warning" disabled>Edit</button>
+                            @endif
+                            
+                            {{--  --}}
+                            <a href="/formpaklarin/{{$gj->id}}" type="button" class="btn btn-light">Paklarin</a>
                         </td>
                     </tr>
                 </tbody>

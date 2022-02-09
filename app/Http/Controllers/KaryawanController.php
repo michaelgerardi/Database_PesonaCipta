@@ -9,6 +9,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use\App\Models\User;
 use App\Models\Jabatan;
 use App\Models\Divisi;
+use App\Models\Kehadiran;
+use App\Models\Data_Gaji;
+use App\Models\History_Gaji;
 use Auth;
 
 
@@ -35,27 +38,27 @@ class KaryawanController extends Controller
 
     public function addKar(Request $request)
     {
-        $this->validate($request, [
-            'id' => 'required',
-            'nip' => 'required',
-            'nama_karyawan' => 'required',
-            'jenis_kelamin' => 'required',
-            'no_ktp' => 'required',
-            'no_kk' => 'required',
-            'status' => 'required',
-            'jml_tanggungan' => 'required',
-            'alamat' => 'required',
-            'umur' => 'required',
-            'tgl_lahir' => 'required',
-            'npwp' => 'required',
-            'no_rek' => 'required',
-            'email' => 'required',
-            'no_bpjs' => 'required',
-            'password' => 'required',
-            'masa_jabatan' => 'required',
-            'id_jabatan' => 'required',
-            'id_divisi' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'id' => 'required',
+        //     'nip' => 'required',
+        //     'nama_karyawan' => 'required',
+        //     'jenis_kelamin' => 'required',
+        //     'no_ktp' => 'required',
+        //     'no_kk' => 'required',
+        //     'status' => 'required',
+        //     'jml_tanggungan' => 'required',
+        //     'alamat' => 'required',
+        //     'umur' => 'required',
+        //     'tgl_lahir' => 'required',
+        //     'npwp' => 'required',
+        //     'no_rek' => 'required',
+        //     'email' => 'required',
+        //     'no_bpjs' => 'required',
+        //     'password' => 'required',
+        //     'masa_jabatan' => 'required',
+        //     'id_jabatan' => 'required',
+        //     'id_divisi' => 'required'
+        // ]);
 
         $id =  Auth::user()->id;
         $id_admin = User::where('id',$id)->value('id');
@@ -81,7 +84,7 @@ class KaryawanController extends Controller
             'id_divisi' => $request->id_divisi
         ]);
 		$user->save();
-        return redirect("/home");
+        return redirect("/datakar");
         // return $id_admin;
     }
 
@@ -90,11 +93,45 @@ class KaryawanController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 
+    //Absensi
     public function dataAbsenKar()
     {
-        $karyawan = Auth::user()->id;
+        $id_karyawan = Auth::user()->id;
+        $divisi = User::where('id',$id_karyawan)->value('id_divisi');
+        $karyawan = User::where([['id_divisi',$divisi],['id_jabatan','!=','4']])->get();
         return view ('dataabsenkar',compact('karyawan'));
     }
 
+    public function addMasuk(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $id = Auth::User()->id;
+        $tanggal = date("Y-m-d");
+        $time = date("H:i:s");
+        $id_pic = User::where('id',$id)->value('id');
+        $i=1;
+        foreach($request->id as $row)
+        {
+            $absen = new Kehadiran([
+                'id_karyawan' => $request->id[$i],
+                'tanggal_masuk' => $tanggal,
+                'jam_masuk' => $time,
+                'status' => $request->status[$i]
+            ]);
+            $i++;
+            $absen->save();
+        }
+        return redirect("/dataabsenkar");
+        // return $absen;
+    }
 
+    //Penggajian
+    public function dataGajikar()
+    {
+        $id_karyawan = Auth::user()->id;
+        $datagaji = Data_Gaji::where('id',$id_karyawan)->value('id');
+        $histogaji = History_Gaji::where('id_gaji_karyawan',$datagaji)->get();
+        return view ('datagajikar',compact('datagaji','histogaji'));
+        // return $histogaji;
+    }
 }

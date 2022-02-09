@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('auth.cusLogin');
 });
 
+//Login and Home
 Auth::routes();
 Route::get('/cusLogin', [App\Http\Controllers\Auth\CustomLoginController::class, 'loginForm'])->name('custom.login');
 Route::post('/customlogin', [App\Http\Controllers\Auth\CustomLoginController::class, 'login'])->name('customlogin');
@@ -33,6 +34,7 @@ Route::get('/datakar', [App\Http\Controllers\KaryawanController::class, 'indexKa
 Route::get('/addkaryawan', [App\Http\Controllers\KaryawanController::class, 'formAddKar'])->name('formaddkar');
 Route::post('/addkaryawan/addKar', [App\Http\Controllers\KaryawanController::class, 'addKar'])->name('addDataKar');
 
+//Penggajian
 Route::get('/historygaji', [App\Http\Controllers\AdminController::class, 'historyGaji'])->name('historyGaji');
 
 Route::get('/addgajikar/{id}', [App\Http\Controllers\AdminController::class, 'formGaji'])->name('formaddgajikar');
@@ -43,6 +45,8 @@ Route::get('/editgajikar/{id}', [App\Http\Controllers\AdminController::class, 'f
 Route::post('/editgajikar/editGaji', [App\Http\Controllers\AdminController::class, 'editGaji'])->name('editgajikar');
 
 Route::get('historygaji/export/',[App\Http\Controllers\AdminController::class, 'export'])->name('downloaddatagaji');
+
+Route::get('datagajikar/',[App\Http\Controllers\KaryawanController::class, 'dataGajikar'])->name('tabledatagajikar');
 
 //Lokasi Kerja
 Route::get('/lokkerja', [App\Http\Controllers\AdminController::class, 'lokKerja'])->name('lokkerja');
@@ -60,3 +64,9 @@ Route::post('/formkontrakkerja/addKontrakKerja', [App\Http\Controllers\AdminCont
 Route::get('/formpaklarin/{id}', [App\Http\Controllers\AdminController::class, 'paklarin'])->name('formpaklarin');
 
 Route::post('/formpaklarin/addDataPak', [App\Http\Controllers\AdminController::class, 'addDataPak'])->name('adddatapak');
+
+
+//Absensi
+Route::get('/dataabsenkar', [App\Http\Controllers\KaryawanController::class, 'dataAbsenKar'])->name('dataabsenkar');
+
+Route::post('/dataabsenkar/addMasuk', [App\Http\Controllers\KaryawanController::class, 'addMasuk'])->name('absenmasuk');

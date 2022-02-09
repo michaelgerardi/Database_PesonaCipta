@@ -19,6 +19,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/totalgaji.js') }}" defer></script>
     <script src="{{ asset('js/durasikontrak.js') }}" defer></script>
+    <script src="{{ asset('js/submitabsen.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

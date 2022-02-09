@@ -88,7 +88,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Absensi</h5>
                             <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman absensi</p>
-                            <a href="{{route('formaddkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                            <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Lihat</a>
                         </div>
                     </div>
                 </div>
@@ -96,9 +96,9 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Data Gaji</h5>
-                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman penggajian</p>
-                            <a href="{{route('formaddkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                            <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman penggajian {{Auth::user()->nama_karyawan}}</p>
+                            <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Lihat</a>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Data Rawon</h5>
                             <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman anjing rawon</p>
-                            <a href="{{route('formaddkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                            <a href="" type="button" class="btn btn-primary">Lihat</a>
                         </div>
                     </div>
                 </div>

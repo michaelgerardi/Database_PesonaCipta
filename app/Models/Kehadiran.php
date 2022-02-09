@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class History_Gaji extends Model
+class Kehadiran extends Model
 {
     use HasFactory;
 
-    protected $table = "history_gaji";
+    protected $table ="kehadiran";
     protected $fillable = [
-        'tanggal_gaji',
+        'tanggal_masuk',
+        'jam_masuk',
         'status',
-        'id_gaji_karyawan'
+        'jam_keluar',
+        'lembur',
+        'cuti',
+        'id_karyawan'
     ];
 }
