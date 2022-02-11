@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use\App\Models\User;
@@ -123,6 +124,35 @@ class KaryawanController extends Controller
         }
         return redirect("/dataabsenkar");
         // return $absen;
+    }
+
+    public function addPulang(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $id = Auth::User()->id;
+        $tanggal = date("Y-m-d");
+        // $timeGoHome = strtotime('17:00:00');
+        $timeGoHome = date("H:i:s");
+        $id_pic = User::where('id',$id)->value('id');
+        $i=1;
+        foreach($request->id as $row1)
+        {
+            Kehadiran::where([['id_karyawan',$request->id[$i]],['tanggal_masuk',$tanggal]])->update([
+                'jam_keluar' => $timeGoHome
+            ]);
+            $i++;
+            // $pulang->save();
+        }
+
+        // $pulang = DB::table('kehadiran')->updateOrInsert([
+        //     'id_karyawan' => $request->id[$i],
+        //     'tanggal_masuk' => $tanggal,
+        //     'jam_keluar' => $timeGoHome
+        // ]);
+        // $i++;
+        // $pulang->save();
+        return redirect ("/dataabsenkar")->with('success','tai ne santuy');
+        // return $pulang;
     }
 
     //Penggajian

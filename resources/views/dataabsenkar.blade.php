@@ -5,15 +5,32 @@
         {{-- Manajer --}}
         @if (Auth::user()->id_jabatan == 1)
 
+        <?php
+            if(\Session::has('success')){
+                $active1 = '';
+                $active2 = 'active';
+                $aria1 = 'false';
+                $aria2 = 'true';
+                $tab1 = '';
+                $tab2 = 'show active';
+            }else{
+                    $active2 = '';
+                    $active1 = 'active';
+                    $aria2 = 'false';
+                    $aria1 = 'true';
+                    $tab2 = '';
+                    $tab1 = 'show active';
+            }
+        ?>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-masuk-tab" data-bs-toggle="tab" data-bs-target="#nav-masuk" type="button" role="tab" aria-controls="nav-masuk" aria-selected="true">Masuk</button>
-                <button class="nav-link" id="nav-pulang-tab" data-bs-toggle="tab" data-bs-target="#nav-pulang" type="button" role="tab" aria-controls="nav-pulang" aria-selected="false">Pulang</button>
+                <button class="nav-link {{$active1}}" id="nav-masuk-tab" data-bs-toggle="tab" data-bs-target="#nav-masuk" type="button" role="tab" aria-controls="nav-masuk" aria-selected="{{$aria1}}">Masuk</button>
+                <button class="nav-link {{$active2}}" id="nav-pulang-tab" data-bs-toggle="tab" data-bs-target="#nav-pulang" type="button" role="tab" aria-controls="nav-pulang" aria-selected="{{$aria2}}">Pulang</button>
                 <button class="nav-link" id="nav-lembur-tab" data-bs-toggle="tab" data-bs-target="#nav-lembur" type="button" role="tab" aria-controls="nav-lembur" aria-selected="false">Lembur</button>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-masuk" role="tabpanel" aria-labelledby="nav-masuk-tab">
+            <div class="tab-pane fade {{$tab1}}" id="nav-masuk" role="tabpanel" aria-labelledby="nav-masuk-tab">
                 <div class="card">
                     <h5 class="card-header"><b>Absensi Jam Masuk</b></h5>
                         <div class="card-body">
@@ -106,14 +123,13 @@
                 </div>
             </div>
 
-        <div class="tab-pane fade" id="nav-pulang" role="tabpanel" aria-labelledby="nav-pulang-tab">
-            <div class="tab-pane fade show active" id="nav-pulang" role="tabpanel" aria-labelledby="nav-pulang-tab">
+            <div class="tab-pane fade {{$tab2}}" id="nav-pulang" role="tabpanel" aria-labelledby="nav-pulang-tab">
                 <div class="card">
                     <h5 class="card-header"><b>Absensi Jam Pulang</b></h5>
                         <div class="card-body">
                             <h5 class="card-title">Silahkan Masukan <b>Absensi Jam Pulang</b> sesuai dengan karyawan yang hadir di lokasi mitra Pesona Cipta</h5>
                             <table class="table">
-                                <form action="#" method="post">
+                                <form action="{{route('absenpulang')}}" method="post">
                                     {{csrf_field()}}
                                     <thead>
                                         <tr>
@@ -122,7 +138,7 @@
                                             <th scope="col">Jabatan</th>
                                             <th scope="col">Tanggal Masuk</th>
                                             <th scope="col">Jam Pulang</th>
-                                            <th scope="col">Checklist</th>
+
                                         </tr>
                                     </thead>
                                     @foreach($karyawan as $kar)
@@ -139,15 +155,6 @@
                                             <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}} disabled></td>
 
                                             <td><input type="time" class="form-control" id="jam_keluar" name="jam_keluar" value={{date("H:i:s")}} disabled></td>
-
-                                            <td><select class="form-select" aria-label="Default select example" name="status[{{$loop->iteration}}]" id="status">
-                                                <option selected>Pilih Kehadiran</option>
-                                                <option value="1">Tepat Waktu</option>
-                                                <option value="2">Terlambat</option>
-                                                <option value="3">Cuti</option>
-                                                <option value="4">Absen</option>
-                                                </select>
-                                            </td>
                                         </tr>
                                     </tbody>
                                     @endforeach

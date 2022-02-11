@@ -70,3 +70,5 @@ Route::post('/formpaklarin/addDataPak', [App\Http\Controllers\AdminController::c
 Route::get('/dataabsenkar', [App\Http\Controllers\KaryawanController::class, 'dataAbsenKar'])->name('dataabsenkar');
 
 Route::post('/dataabsenkar/addMasuk', [App\Http\Controllers\KaryawanController::class, 'addMasuk'])->name('absenmasuk');
+
+Route::post('/dataabsenkar/addPulang', [App\Http\Controllers\KaryawanController::class, 'addPulang'])->name('absenpulang');
