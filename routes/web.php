@@ -65,9 +65,13 @@ Route::get('/formpaklarin/{id}', [App\Http\Controllers\AdminController::class, '
 
 Route::post('/formpaklarin/addDataPak', [App\Http\Controllers\AdminController::class, 'addDataPak'])->name('adddatapak');
 
+Route::get('/pdfPaklarin/{id}', [App\Http\Controllers\AdminController::class, 'pdfPaklarin'])->name('downloadpak');
+
 
 //Absensi
 Route::get('/dataabsenkar', [App\Http\Controllers\KaryawanController::class, 'dataAbsenKar'])->name('dataabsenkar');
+
+Route::get('/dataabsenkars', [App\Http\Controllers\KaryawanController::class, 'lihatAbsen'])->name('dataabsenkars');
 
 Route::post('/dataabsenkar/addMasuk', [App\Http\Controllers\KaryawanController::class, 'addMasuk'])->name('absenmasuk');
 

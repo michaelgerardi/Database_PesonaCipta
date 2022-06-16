@@ -101,7 +101,16 @@ class KaryawanController extends Controller
         $divisi = User::where('id',$id_karyawan)->value('id_divisi');
         $karyawan = User::where([['id_divisi',$divisi],['id_jabatan','!=','4']])->get();
         return view ('dataabsenkar',compact('karyawan'));
-    }
+    } //manajer
+
+    public function lihatAbsen()
+    {
+        $idkar = Auth::user()->id;
+        $divisi = User::where('id',$idkar)->value('id_divisi');
+        $karyawan = User::where([['id_divisi',$divisi],['id_jabatan','!=','4'],['id',$idkar]])->first();
+        $kehadiran = Kehadiran::where('id_karyawan',$karyawan->id)->get();
+        return view ('dataabsenkar',compact('karyawan','kehadiran'));
+    }//karyawan biasa
 
     public function addMasuk(Request $request)
     {
@@ -141,17 +150,8 @@ class KaryawanController extends Controller
                 'jam_keluar' => $timeGoHome
             ]);
             $i++;
-            // $pulang->save();
         }
-
-        // $pulang = DB::table('kehadiran')->updateOrInsert([
-        //     'id_karyawan' => $request->id[$i],
-        //     'tanggal_masuk' => $tanggal,
-        //     'jam_keluar' => $timeGoHome
-        // ]);
-        // $i++;
-        // $pulang->save();
-        return redirect ("/dataabsenkar")->with('success','tai ne santuy');
+        return redirect ("/dataabsenkar")->with('success');
         // return $pulang;
     }
 
@@ -159,9 +159,10 @@ class KaryawanController extends Controller
     public function dataGajikar()
     {
         $id_karyawan = Auth::user()->id;
-        $datagaji = Data_Gaji::where('id',$id_karyawan)->value('id');
+        $datagaji = Data_Gaji::where('id_karyawan',$id_karyawan)->value('id');
+        $karyawan = Data_Gaji::where([['id',$datagaji]])->first();
         $histogaji = History_Gaji::where('id_gaji_karyawan',$datagaji)->get();
-        return view ('datagajikar',compact('datagaji','histogaji'));
+        return view ('datagajikar',compact('histogaji','datagaji','karyawan'));
         // return $histogaji;
     }
 }

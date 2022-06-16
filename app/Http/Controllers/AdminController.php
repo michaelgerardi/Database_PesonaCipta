@@ -9,10 +9,12 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Jabatan;
 use App\Models\Divisi;
 use App\Models\Data_Gaji;
+use App\Models\Data_Paklarin;
 use App\Models\Lokasi_Kerja;
 use App\Models\Kontrak_Kerja;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use PDF;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class AdminController extends Controller
@@ -195,9 +197,21 @@ class AdminController extends Controller
         return redirect('/datakar');
     }
 
-    public function downDataPak($data)
+    // public function downDataPak($data)
+    // {
+    //     $pdf = PDF::loadView('pdf.invoice', $data);
+    //     return $pdf->download('invoice.pdf');
+    // }
+
+    public function pdfPaklarin($id)
     {
-        $pdf = PDF::loadView('pdf.invoice', $data);
-        return $pdf->download('invoice.pdf');
+        $user = User::where('id',$id)->value('id');
+        $kontrak = Kontrak_Kerja::where('id_karyawan',$id)->first();
+        $loker = Lokasi_Kerja::where('id',$kontrak->id_lokasi_kerja)->first();
+        $data = Data_Paklarin::where('id_karyawan',$id)->first();
+        //view()->share('user',$data);
+        $pdf = PDF::loadView('/paklarin',compact('data','user','loker'))->setPaper('a4','potrait');
+        return $pdf->stream('data_paklarin.pdf');
+        //return $user;
     }
 }

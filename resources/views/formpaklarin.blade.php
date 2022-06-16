@@ -59,6 +59,12 @@
             </div>
         </div>
 
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <a href="{{route('downloadpak',['id'=>$user])}}" class="btn btn-warning" type="button">Download PDF</a>
+            </div>
+        </div>
+
     </div>
     </form>
 @endsection

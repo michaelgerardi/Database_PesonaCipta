@@ -88,7 +88,11 @@
                         <div class="card-body">
                             <h5 class="card-title">Absensi</h5>
                             <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman absensi</p>
-                            <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                            @if (Auth::user()->id_jabatan == 1)
+                                <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                                @else 
+                                <a href="{{route('dataabsenkars')}}" type="button" class="btn btn-primary">Lihat</a>
+                            @endif
                         </div>
                     </div>
                 </div>
