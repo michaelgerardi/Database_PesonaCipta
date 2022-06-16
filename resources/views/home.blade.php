@@ -12,8 +12,8 @@
         <div id="container"></div>
     </figure>
     <br>
-        <div class="row justify-content g-3">
-            <div class="col-md-3">
+        <div class="">
+            <div class="col-md-3">row justify-content g-3
                 <div class="card" style="width: 18rem;">
                     <img src="" class="card-img-top" alt="">
                     <div class="card-body">
@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
                     <img src="image/People_Logo.png" class="card-img-top" style="width:90px; height:90px">
                     <div class="card-body">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         @else
             <br>
             <div class="container">
@@ -90,7 +90,7 @@
                             <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman absensi</p>
                             @if (Auth::user()->id_jabatan == 1)
                                 <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Lihat</a>
-                                @else 
+                                @else
                                 <a href="{{route('dataabsenkars')}}" type="button" class="btn btn-primary">Lihat</a>
                             @endif
                         </div>
