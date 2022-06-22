@@ -12,8 +12,9 @@
         <div id="container"></div>
     </figure>
     <br>
-        <div class="">
-            <div class="col-md-3">row justify-content g-3
+        {{-- <div class="row justify-content g-3"> --}}
+        <div class="card-deck">
+            {{-- <div class="col-md-3"> --}}
                 <div class="card" style="width: 18rem;">
                     <img src="" class="card-img-top" alt="">
                     <div class="card-body">
@@ -21,9 +22,9 @@
                             <a href="{{route('historyGaji')}}" class="btn btn-primary">Lihat</a>
                     </div>
                 </div>
-            </div>
+            {{-- </div> --}}
 
-            <div class="col-md-4">
+            {{-- <div class="col-md-3"> --}}
                 <div class="card" style="width: 18rem;">
                     <img src="" class="card-img-top" alt="">
                     <div class="card-body">
@@ -31,9 +32,9 @@
                             <a href="{{ route('downloaddatakar') }}" class="btn btn-primary">Download</a>
                     </div>
                 </div>
-            </div>
+            {{-- </div> --}}
 
-            <div class="col-md-4">
+            {{-- <div class="col-md-3"> --}}
                 <div class="card" style="width: 18rem;">
                     <img src="" class="card-img-top" alt="">
                     <div class="card-body">
@@ -41,7 +42,7 @@
                             <a href="/#" class="btn btn-primary">Download</a>
                     </div>
                 </div>
-            </div>
+            {{-- </div> --}}
 
             {{-- <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
@@ -52,12 +53,13 @@
                             <a href="/addkaryawan" class="btn btn-primary">Tambah</a>
                     </div>
                 </div>
-            </div>
-        </div> --}}
+            </div> --}}
+        </div>
+        {{-- </div> --}}
         @else
             <br>
             <div class="container">
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                {{-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                         <img src="image/test.png" class="d-block w-100" alt="...">
@@ -77,7 +79,7 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                     </button>
-                </div>
+                </div> --}}
             <br>
             <h3><b>Selamat Datang {{Auth::user()->nama_karyawan}}</b></h3>
             <br>
