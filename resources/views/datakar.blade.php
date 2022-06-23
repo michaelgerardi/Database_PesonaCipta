@@ -37,9 +37,9 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">List Kontrak Kerja</h5>
-                    <p class="card-text">Klik tombol di bawah untuk melihat kontrak kerja karyawan Pesona Cipta</p>
-                    <a href="" type="button" class="btn btn-warning">Lihat</a>
+                    <h5 class="card-title">List Jabatan</h5>
+                    <p class="card-text">Klik tombol di bawah untuk melihat jabatan karyawan Pesona Cipta</p>
+                    <a href="{{route('listjabatan')}}" type="button" class="btn btn-warning">Lihat</a>
                 </div>
             </div>
         </div>

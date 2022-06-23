@@ -15,6 +15,7 @@ class Lokasi_Kerja extends Model
         'alamat_lokasi',
         'kode_pos',
         'no_telp',
-        'fax'
+        'fax',
+        'umr'
     ];
 }

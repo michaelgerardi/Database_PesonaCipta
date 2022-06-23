@@ -18,6 +18,7 @@
                             <th scope="col">Kode Pos</th>
                             <th scope="col">Nomor Telepon</th>
                             <th scope="col">Fax</th>
+                            <th scope="col">UMR</th>
                             <th scope="col">Opsi</th>
                         </tr>
                     </thead>
@@ -30,9 +31,10 @@
                                 <td>{{$lk->kode_pos}}</td>
                                 <td>{{$lk->no_telp}}</td>
                                 <td>{{$lk->fax}}</td>
+                                <td>{{$lk->umr}}</td>
                                 <td>
-                                    <a href="" type="button" class="btn btn-warning">Edit</a>
-                                    <a href="" type="button" class="btn btn-danger">Delete</a>
+                                    <a href="{{route('formeditlokkerja',['id' => $lk->id])}}" type="button" class="btn btn-warning">Edit</a>
+                                    <a href="#" type="button" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         </tbody>

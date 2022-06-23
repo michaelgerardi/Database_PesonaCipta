@@ -45,6 +45,13 @@
         </div>
 
         <div class="form-group row">
+            <label for="umr" class="col-sm-2 col-form-label"><b>Upah Minimum Kerja</b></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="umr" id="umr" placeholder="Masukan nominal UMR lokasi kerja mirta Pesona Cipta">
+            </div>
+        </div>
+
+        <div class="form-group row">
             <div class="col-sm-10">
                 <input type="submit" class="btn btn-primary" value="Create">
             </div>

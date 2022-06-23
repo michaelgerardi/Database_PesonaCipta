@@ -147,9 +147,36 @@ class AdminController extends Controller
             'nama_lokasi'=>$request->nama_lokasi,
             'alamat_lokasi'=>$request->alamat_lokasi,
             'kode_pos'=>$request->kode_pos,
-            'no_telp'=>$request->no_tlp,
+            'no_telp'=>$request->no_telp,
             'fax'=>$request->fax,
+            'umr' =>$request->umr
         ]);
+        return redirect('/lokkerja');
+    }
+
+    public function formEditLokKerja($id)
+    {
+        $lokker = Lokasi_Kerja::where('id',$id)->first();
+        return view ('editlokkerja',['lokker' => $lokker]);
+    }
+
+    public function updateLokKerja(Request $request)
+    {
+        $id = Lokasi_Kerja::where('id',$request->id)->value('id');
+        Lokasi_Kerja::where('id', $id)->update([
+            'nama_lokasi'=>$request->nama_lokasi,
+            'alamat_lokasi'=>$request->alamat_lokasi,
+            'kode_pos'=>$request->kode_pos,
+            'no_telp'=>$request->no_telp,
+            'fax'=>$request->fax,
+            'umr' =>$request->umr
+        ]);
+        return redirect('/lokkerja');
+    }
+
+    public function deleteLokkerja($id)
+    {
+        DB::table('lokasi_kerja')->where('id',$id)->delete();
         return redirect('/lokkerja');
     }
 
@@ -172,6 +199,59 @@ class AdminController extends Controller
             'id_karyawan'=>$request->id_karyawan
         ]);
         return redirect('/datakar');
+    }
+
+    //Data Jabatan
+    public function indexjabatan()
+    {
+        $jabat = Jabatan::all();
+        return view ('listjabatan',compact('jabat'));
+    }
+
+    public function formaddJabatan()
+    {
+        return view('#');
+    }
+
+    public function addJabatan(Request $request)
+    {
+        // $id_karyawan = Auth::user()->id;
+        $id = Lokasi_Kerja::where('id',$request->id)->value('id');
+        DB::table('lokasi_kerja')->insert([
+            'nama_lokasi'=>$request->nama_lokasi,
+            'alamat_lokasi'=>$request->alamat_lokasi,
+            'kode_pos'=>$request->kode_pos,
+            'no_telp'=>$request->no_telp,
+            'fax'=>$request->fax,
+            'umr' =>$request->umr
+        ]);
+        return redirect('/lokkerja');
+    }
+
+    public function formeditJabatan($id)
+    {
+        $lokker = Lokasi_Kerja::where('id',$id)->first();
+        return view ('editlokkerja',['lokker' => $lokker]);
+    }
+
+    public function updateJabatan(Request $request)
+    {
+        $id = Lokasi_Kerja::where('id',$request->id)->value('id');
+        Lokasi_Kerja::where('id', $id)->update([
+            'nama_lokasi'=>$request->nama_lokasi,
+            'alamat_lokasi'=>$request->alamat_lokasi,
+            'kode_pos'=>$request->kode_pos,
+            'no_telp'=>$request->no_telp,
+            'fax'=>$request->fax,
+            'umr' =>$request->umr
+        ]);
+        return redirect('/lokkerja');
+    }
+
+    public function deleteJabatan($id)
+    {
+        DB::table('lokasi_kerja')->where('id',$id)->delete();
+        return redirect('/lokkerja');
     }
 
     //Data Paklarin

@@ -13,6 +13,7 @@ class Jabatan extends Model
 
     protected $fillable = [
         'gol_jabatan',
+        'persentase'
     ];
 
 }

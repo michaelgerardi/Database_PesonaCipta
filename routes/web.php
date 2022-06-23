@@ -55,6 +55,17 @@ Route::get('/formlokasiker', [App\Http\Controllers\AdminController::class, 'form
 
 Route::post('/formlokasiker/addLokKerja', [App\Http\Controllers\AdminController::class, 'addLokKerja'])->name('addLK');
 
+Route::get('/editlokkerja/{id}', [App\Http\Controllers\AdminController::class, 'formEditLokKerja'])->name('formeditlokkerja');
+
+Route::post('/editlokkerja/updateLokKerja', [App\Http\Controllers\AdminController::class, 'updateLokKerja'])->name('editlokkerja');
+
+Route::get('deleteLokKerja', [App\Http\Controllers\AdminController::class, 'deleteLokKerja'])->name('deletelokkerja');
+
+Route::get('/lokkerja/delete/{id}','@delete');
+
+//Jabatan
+Route::get('/listjabatan', [App\Http\Controllers\AdminController::class, 'indexjabatan'])->name('listjabatan');
+
 //Kontrak Kerja
 Route::get('/formkontrakkerja/{id}', [App\Http\Controllers\AdminController::class, 'kontrakKerja'])->name('formaddkontrakkerja');
 
