@@ -208,51 +208,32 @@ class AdminController extends Controller
         return view ('listjabatan',compact('jabat'));
     }
 
-    public function formaddJabatan()
-    {
-        return view('#');
-    }
-
     public function addJabatan(Request $request)
     {
         // $id_karyawan = Auth::user()->id;
-        $id = Lokasi_Kerja::where('id',$request->id)->value('id');
-        DB::table('lokasi_kerja')->insert([
-            'nama_lokasi'=>$request->nama_lokasi,
-            'alamat_lokasi'=>$request->alamat_lokasi,
-            'kode_pos'=>$request->kode_pos,
-            'no_telp'=>$request->no_telp,
-            'fax'=>$request->fax,
-            'umr' =>$request->umr
+        $tamjab = Jabatan::where('id',$request->id)->value('id');
+        DB::table('jabatan')->insert([
+            'gol_jabatan'=>$request->gol_jabatan,
+            'persentase'=>$request->persentase
         ]);
-        return redirect('/lokkerja');
-    }
-
-    public function formeditJabatan($id)
-    {
-        $lokker = Lokasi_Kerja::where('id',$id)->first();
-        return view ('editlokkerja',['lokker' => $lokker]);
+        return redirect('/listjabatan');
     }
 
     public function updateJabatan(Request $request)
     {
-        $id = Lokasi_Kerja::where('id',$request->id)->value('id');
-        Lokasi_Kerja::where('id', $id)->update([
-            'nama_lokasi'=>$request->nama_lokasi,
-            'alamat_lokasi'=>$request->alamat_lokasi,
-            'kode_pos'=>$request->kode_pos,
-            'no_telp'=>$request->no_telp,
-            'fax'=>$request->fax,
-            'umr' =>$request->umr
+        $id = Jabatan::where('id',$request->id)->value('id');
+        Jabatan::where('id', $id)->update([
+            'gol_jabatan'=>$request->gol_jabatan,
+            'persentase'=>$request->persentase
         ]);
-        return redirect('/lokkerja');
+        return redirect('/listjabatan');
     }
 
-    public function deleteJabatan($id)
-    {
-        DB::table('lokasi_kerja')->where('id',$id)->delete();
-        return redirect('/lokkerja');
-    }
+    // public function deleteJabatan($id)
+    // {
+    //     DB::table('lokasi_kerja')->where('id',$id)->delete();
+    //     return redirect('/lokkerja');
+    // }
 
     //Data Paklarin
     public function paklarin($id)
