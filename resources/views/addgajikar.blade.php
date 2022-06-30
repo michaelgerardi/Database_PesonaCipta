@@ -3,6 +3,7 @@
 @section('content')
 <form action="{{route('addgajikar')}}" method="post" enctype="multipart/form-data">
     @csrf
+    <input type="hidden" name="id" value="{{ $karyawan->id }}">
     <div class="container">
         <br>
         <h3>Payroll Karyawan</h3>

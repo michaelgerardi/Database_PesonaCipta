@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Exports\DataGajiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Jabatan;
-use App\Models\Divisi;
+use App\Models\Kehadiran;
 use App\Models\Data_Gaji;
 use App\Models\Data_Paklarin;
 use App\Models\Lokasi_Kerja;
@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use PDF;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
+
 
 class AdminController extends Controller
 {
@@ -74,14 +75,38 @@ class AdminController extends Controller
 
     public function addGaji(Request $request)
     {
-        $id_karyawan = Auth::user()->id;
-        $id = User::where('id',$request->id)->value('id');
+        $user = User::where('id',$request->id)->first();
+        $gaji=Lokasi_Kerja::where("id",$user->id_lokasikerja)->value('umr');
+        $jabatan=Jabatan::where("id",$user->id_jabatan)->value('persentase');
+        $ttlgaji=$gaji+($gaji*($jabatan/100)); //gaji total satu bulan
+        $perjam=$ttlgaji/240; //untuk dapat gaji per jam (1 hari 8 jam kerja)
+        $transdate = date('m'); //untuk ambil bulan saat penggajian
+        $jmlabsen = Kehadiran::where([
+            ['id_karyawan',$request->id],
+            ])->whereMonth('tanggal_masuk',$transdate)->count(); //hari masuk kerja
+        $basegaji=0; //antisipasi error
+        $basegaji=($jmlabsen*8)*$perjam; //jumlah absen dikali 8 jam kerja dikali gajiperjam
+        $baligasik = Kehadiran::where([
+            ['id_karyawan',$request->id],
+            ['lembur','<',0],
+            ])->whereMonth('tanggal_masuk',$transdate)->sum('lembur'); //jam kerja belum sampek 8 jam kerja
+        $potonggaji=0; //antisipasi error
+        $potonggaji=$baligasik*$perjam; //selisih dari pulang kerja duluan dikali gaji per jam
+        $balikeri = Kehadiran::where([
+            ['id_karyawan',$request->id],
+            ['lembur','>',0],
+            ])->whereMonth('tanggal_masuk',$transdate)->sum('lembur'); //jam kerja lembur (lebih dari 8 jam kerja)
+        $bonus=0;
+        $bonus=$balikeri*15000; //kalkulasi gaji lembur
+        $gajibulaninikotor=$basegaji+$potonggaji+$bonus; //gaji kotor
+        $bpjs = $gajibulaninikotor*1.74; //pengurangan BPJS tenaga kerja
+        $gajibulanbersih = $gajibulaninikotor-$bpjs; //gaji bersih setelah bpjs
         DB::table('data_gaji')->insert([
             'id_karyawan'=>$request->id,
-            'gaji_pokok'=>$request->gaji_pokok,
+            'gaji_pokok'=>$gajibulanbersih,
             'gaji_tunjangan'=>$request->gaji_tunjangan,
             'thr'=>$request->thr,
-            'bpjs'=>$request->bpjs,
+            'bpjs'=>$bpjs,
         ]);
         $id_gaji = Data_Gaji::where('id_karyawan',$request->id)->latest('created_at')->value('id');
         DB::table('history_gaji')->insert([
@@ -91,6 +116,7 @@ class AdminController extends Controller
         ]);
 
         return redirect('/historygaji');
+        //return $potonggaji;
     }
 
     public function formEditGaji($id)
@@ -174,11 +200,12 @@ class AdminController extends Controller
         return redirect('/lokkerja');
     }
 
-    public function deleteLokkerja($id)
-    {
-        DB::table('lokasi_kerja')->where('id',$id)->delete();
-        return redirect('/lokkerja');
-    }
+    // public function deleteLokkerja($id)
+    // {
+    //     $lokker = Lokasi_Kerja::find($id);
+    //     $lokker->delete();
+    //     return redirect('/lokkerja');
+    // }
 
     //Kontrak Kerja
     public function kontrakKerja($id)
@@ -232,6 +259,8 @@ class AdminController extends Controller
     // public function deleteJabatan($id)
     // {
     //     DB::table('lokasi_kerja')->where('id',$id)->delete();
+    //     $deljab = Jabatan::find($id);
+    //     $deljab->delete();
     //     return redirect('/lokkerja');
     // }
 

@@ -34,7 +34,7 @@
                                 <td>{{$lk->umr}}</td>
                                 <td>
                                     <a href="{{route('formeditlokkerja',['id' => $lk->id])}}" type="button" class="btn btn-warning">Edit</a>
-                                    <a href="{{route("delloker")}}" type="button" class="btn btn-danger">Delete</a>
+                                    <a href="{{route('delloker',['id'=>$lk->id])}}" type="button" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         </tbody>

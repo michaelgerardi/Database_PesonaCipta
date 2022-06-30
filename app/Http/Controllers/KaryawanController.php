@@ -146,13 +146,20 @@ class KaryawanController extends Controller
         $i=1;
         foreach($request->id as $row1)
         {
+            $jammsk = Kehadiran::where([['id_karyawan',$request->id[$i]],['tanggal_masuk',$tanggal]])->value('jam_masuk');
+            $date1=strtotime($jammsk);
+            $date2=strtotime($timeGoHome);
+            $diff=round((($date2-$date1)/3600)-8,1);
             Kehadiran::where([['id_karyawan',$request->id[$i]],['tanggal_masuk',$tanggal]])->update([
-                'jam_keluar' => $timeGoHome
+                'jam_keluar' => $timeGoHome,
+                'lembur' => $diff
             ]);
             $i++;
+            
         }
         return redirect ("/dataabsenkar")->with('success');
-        // return $pulang;
+      
+         //return $diff;
     }
 
     //Penggajian

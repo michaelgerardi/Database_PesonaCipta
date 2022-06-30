@@ -59,7 +59,7 @@ Route::get('/editlokkerja/{id}', [App\Http\Controllers\AdminController::class, '
 
 Route::post('/editlokkerja/updateLokKerja', [App\Http\Controllers\AdminController::class, 'updateLokKerja'])->name('editlokkerja');
 
-Route::post('/deleteLokKerja', [App\Http\Controllers\AdminController::class, 'deleteLokKerja'])->name('delloker');
+Route::get('lokkerja/deleteLokKerja/{id}', [App\Http\Controllers\AdminController::class, 'deleteLokKerja'])->name('delloker');
 
 // Route::get('/lokkerja/delete/{id}','@delete');
 
