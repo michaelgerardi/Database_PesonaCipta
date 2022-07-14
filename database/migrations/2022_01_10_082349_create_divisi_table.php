@@ -15,7 +15,7 @@ class CreateDivisiTable extends Migration
     {
         Schema::create('divisi', function (Blueprint $table) {
             $table->id();
-            $table->char('divisi',2);
+            $table->string('divisi',10);
             $table->timestamps();
         });
     }

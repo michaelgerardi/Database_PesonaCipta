@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DataGaji extends Migration
+class AddFkToKehadiranTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,9 @@ class DataGaji extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('kehadiran', function (Blueprint $table) {
+            $table->foreign('id_karyawan')->references('id')->on('users');
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class DataGaji extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('kehadiran', function (Blueprint $table) {
+            //
+        });
     }
 }

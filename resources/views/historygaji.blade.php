@@ -5,45 +5,35 @@
         <br>
         <h3>History Gaji Pegawai</h3>
         <br>
-    <div class="row g-3">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Lokasi Mitra</h5>
-                    <p class="card-text">Klik tombol di bawah untuk melihat lokasi mitra Pesona Cipta</p>
-                    <a href="{{route('lokkerja')}}" type="button" class="btn btn-primary">Lihat</a>
-                </div>
-            </div>
+
+    <div class="row">
+        <div class="span4">
+            <button type="button" class="btn btn-secondary">
+                <input type="date" id="tanggal_gaji" name="tanggal_gaji">
+            </button>
         </div>
 
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Lokasi Mitra</h5>
-                    <p class="card-text">Klik tombol di bawah untuk melihat lokasi mitra Pesona Cipta</p>
-                    <a href="{{route('lokkerja')}}" type="button" class="btn btn-primary">Lihat</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="row g-3">
-        <div class="col-md-2">
-            <input type="date" id="tanggal_gaji" name="tanggal_gaji">
-        </div>
-
-        <div class="col-md-3">
+        <div class="span4">
             <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     Divisi <i class="fa-solid fa-calendar-lines"></i>
                 </a>
-
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Januari</a></li>
-                    <li><a class="dropdown-item" href="#">Februari</a></li>
-                    <li><a class="dropdown-item" href="#">Maret</a></li>
-                    <li><a class="dropdown-item" href="#">April</a></li>
+                    <li><a class="dropdown-item" href="#">Keamanan</a></li>
+                    <li><a class="dropdown-item" href="#">Kebersihan</a></li>
+                    <li><a class="dropdown-item" href="#">Transportas</a></li>
+                    <li><a class="dropdown-item" href="#">Support Staff</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="span4">
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Status Penggajian
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Sudah Digaji</a></li>
+                    <li><a class="dropdown-item" href="#">Belum Digaji</a></li>
                 </ul>
             </div>
         </div>

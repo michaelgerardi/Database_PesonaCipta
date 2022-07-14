@@ -13,13 +13,13 @@ class CreateDataGajiTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('data_gaji');
         Schema::create('data_gaji', function (Blueprint $table) {
             $table->id();
             $table->integer('gaji_pokok');
             $table->integer('gaji_tunjangan');
             $table->integer('thr');
             $table->integer('bpjs');
-            $table->bigInteger('id_karyawan');
             $table->timestamps();
         });
     }

@@ -13,7 +13,8 @@ use App\Models\Data_Paklarin;
 use App\Models\Lokasi_Kerja;
 use App\Models\Kontrak_Kerja;
 use Illuminate\Support\Facades\DB;
-use Auth;
+// use Auth;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 

@@ -15,10 +15,12 @@ class CreateLokasiKerjaTable extends Migration
     {
         Schema::create('lokasi_kerja', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lokasi');
-            $table->string('alamat_lokasi');
-            $table->char('kode_pos');
-            $table->bigInteger('id_kontrak_kerja');
+            $table->string('nama_lokasi',30);
+            $table->string('alamat_lokasi',50);
+            $table->char('kode_pos',5);
+            $table->char('no_telp',10);
+            $table->char('fax',10);
+            $table->integer('umr');
             $table->timestamps();
         });
     }

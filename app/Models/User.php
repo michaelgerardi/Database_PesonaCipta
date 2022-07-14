@@ -36,6 +36,7 @@ class User extends Authenticatable
         'masa_jabatan',
         'id_jabatan',
         'id_divisi',
+        'id_lok_kerja'
     ];
 
     /**

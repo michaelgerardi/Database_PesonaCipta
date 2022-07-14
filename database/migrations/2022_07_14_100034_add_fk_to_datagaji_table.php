@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistoryGajiTable extends Migration
+class AddFkToDatagajiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateHistoryGajiTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('history_gaji');
-        Schema::create('history_gaji', function (Blueprint $table) {
-            $table->id();
-            $table->date('tanggal_gaji');
-            $table->integer('status');
-            $table->timestamps();
+        Schema::table('data_gaji', function (Blueprint $table) {
+            $table->bigInteger('id_karyawan')->unsigned();
+            $table->foreign('id_karyawan')->references('id')->on('users');
         });
     }
 
@@ -29,6 +26,8 @@ class CreateHistoryGajiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history_gaji');
+        Schema::table('data_gaji', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -13,6 +13,7 @@ class CreateKehadiranTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('kehadiran');
         Schema::create('kehadiran', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_masuk');
@@ -20,7 +21,6 @@ class CreateKehadiranTable extends Migration
             $table->time('jam_keluar');
             $table->time('lembur');
             $table->date('cuti');
-            $table->bigInteger('id_karyawan');
             $table->timestamps();
         });
     }

@@ -91,3 +91,7 @@ Route::get('/dataabsenkars', [App\Http\Controllers\KaryawanController::class, 'l
 Route::post('/dataabsenkar/addMasuk', [App\Http\Controllers\KaryawanController::class, 'addMasuk'])->name('absenmasuk');
 
 Route::post('/dataabsenkar/addPulang', [App\Http\Controllers\KaryawanController::class, 'addPulang'])->name('absenpulang');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

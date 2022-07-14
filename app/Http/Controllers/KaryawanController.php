@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
-use\App\Models\User;
+use App\Models\User;
 use App\Models\Jabatan;
 use App\Models\Divisi;
 use App\Models\Kehadiran;

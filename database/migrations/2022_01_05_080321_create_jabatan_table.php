@@ -16,7 +16,7 @@ class CreateJabatanTable extends Migration
         Schema::create('jabatan', function (Blueprint $table) {
             $table->id();
             $table->integer('gol_jabatan');
-            $table->string('masa_jabatan');
+            $table->decimal('persentase');
             $table->timestamps();
         });
     }
