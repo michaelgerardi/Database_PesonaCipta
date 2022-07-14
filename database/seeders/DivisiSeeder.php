@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Divisi;
 
 class DivisiSeeder extends Seeder
 {
@@ -13,6 +14,8 @@ class DivisiSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Divisi::factory(1)->create();
+        // \App\Models\Divisi::factory(1)->create();
+        $divisi = new Divisi;
+        $divisi->divisi="Keuangan";
     }
 }

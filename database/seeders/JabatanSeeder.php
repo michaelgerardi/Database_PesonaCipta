@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Jabatan;
 use Illuminate\Database\Seeder;
 
 class JabatanSeeder extends Seeder
@@ -13,6 +14,9 @@ class JabatanSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Jabatan::factory(1)->create();
+        // \App\Models\Jabatan::factory(1)->create();
+        $jabatan = new Jabatan();
+        $jabatan->gol_jabatan="Manajer";
+        $jabatan->persentase="";
     }
 }
