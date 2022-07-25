@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <br>
         <h3>History Gaji Pegawai</h3>
         <br>
@@ -13,30 +13,29 @@
             </button>
         </div>
 
-        <div class="span4">
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    Divisi <i class="fa-solid fa-calendar-lines"></i>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Keamanan</a></li>
-                    <li><a class="dropdown-item" href="#">Kebersihan</a></li>
-                    <li><a class="dropdown-item" href="#">Transportas</a></li>
-                    <li><a class="dropdown-item" href="#">Support Staff</a></li>
-                </ul>
-            </div>
-        </div>
+        <form action="" method="get">
+            <div class="row gx-3 gy-2 align-items-center">
+                <div class="col-sm-7">
+                <label for="divisi" class="col-sm-2 col-form-label">Divisi:</label>
+                <select class="form-select" aria-label=".form-select-sm example" name="divisi" id="divisi">
+                    @foreach($data_divisi as $div)
+                        <option value="{{$div->id}}">{{$div->divisi}}</option>
+                    @endforeach
+                </select>
+                </div>
 
-        <div class="span4">
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Status Penggajian
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Sudah Digaji</a></li>
-                    <li><a class="dropdown-item" href="#">Belum Digaji</a></li>
-                </ul>
+                <div class="col-sm">
+                <label for="status_gaji" class="col-sm-2 col-form-label">Status Penggajian:</label>
+                <select class="form-select" aria-label=".form-select-sm example" name="statgaji" id="statgaji">
+                    @foreach($his_gaji as $hisga)
+                        <option value="{{$hisga->id}}">{{$hisga->status}}</option>
+                    @endforeach
+                </select>
+                </div>
             </div>
-        </div>
+
+            </div>
+        </form>
 
     </div>
 

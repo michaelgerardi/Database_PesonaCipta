@@ -16,7 +16,8 @@ class JabatanSeeder extends Seeder
     {
         // \App\Models\Jabatan::factory(1)->create();
         $jabatan = new Jabatan();
-        $jabatan->gol_jabatan="Manajer";
-        $jabatan->persentase="";
+        $jabatan->gol_jabatan="3";
+        $jabatan->persentase="43.7";
+        $jabatan->save();
     }
 }

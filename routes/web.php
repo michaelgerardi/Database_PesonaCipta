@@ -29,22 +29,22 @@ Route::get('/editprofadmin/{id}', [App\Http\Controllers\AdminController::class, 
 Route::post('/editprofadmin/updateAdmin', [App\Http\Controllers\AdminController::class, 'updateAdmin'])->name('upprofiladmin');
 
 //Karyawan
-Route::get('datakar/export/',[App\Http\Controllers\KaryawanController::class, 'export'])->name('downloaddatakar');
+Route::get('datakar/export/',[App\Http\Controllers\KaryawanController::class, 'exportUser'])->name('downloaddatakar');
 Route::get('/datakar', [App\Http\Controllers\KaryawanController::class, 'indexKar'])->name('listdatakar');
 Route::get('/addkaryawan', [App\Http\Controllers\KaryawanController::class, 'formAddKar'])->name('formaddkar');
 Route::post('/addkaryawan/addKar', [App\Http\Controllers\KaryawanController::class, 'addKar'])->name('addDataKar');
 
 //Penggajian
-Route::get('/historygaji', [App\Http\Controllers\AdminController::class, 'historyGaji'])->name('historyGaji');
+Route::get('/historygaji', [App\Http\Controllers\KaryawanController::class, 'historyGaji'])->name('historyGaji');
 
-Route::get('/addgajikar/{id}', [App\Http\Controllers\AdminController::class, 'formGaji'])->name('formaddgajikar');
-Route::post('/addgajikar/addGaji', [App\Http\Controllers\AdminController::class, 'addGaji'])->name('addgajikar');
+Route::get('/addgajikar/{id}', [App\Http\Controllers\KaryawanController::class, 'formGaji'])->name('formaddgajikar');
+Route::post('/addgajikar/addGaji', [App\Http\Controllers\KaryawanController::class, 'addGaji'])->name('addgajikar');
 
-Route::get('/editgajikar/{id}', [App\Http\Controllers\AdminController::class, 'formEditGaji'])->name('formeditgajikar');
+Route::get('/editgajikar/{id}', [App\Http\Controllers\KaryawanController::class, 'formEditGaji'])->name('formeditgajikar');
 
-Route::post('/editgajikar/editGaji', [App\Http\Controllers\AdminController::class, 'editGaji'])->name('editgajikar');
+Route::post('/editgajikar/editGaji', [App\Http\Controllers\KaryawanController::class, 'editGaji'])->name('editgajikar');
 
-Route::get('historygaji/export/',[App\Http\Controllers\AdminController::class, 'export'])->name('downloaddatagaji');
+Route::get('historygaji/export/',[App\Http\Controllers\KaryawanController::class, 'export'])->name('downloaddatagaji');
 
 Route::get('datagajikar/',[App\Http\Controllers\KaryawanController::class, 'dataGajikar'])->name('tabledatagajikar');
 

@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(1)->create();
         $this->call([
-            DivisiSeeder::class,
+            // DivisiSeeder::class,
             JabatanSeeder::class,
-            UsersSeeder::class,
-            LokasiSeeder::class,
+            // UsersSeeder::class,
+            // LokasiSeeder::class,
         ]);
     }
 }

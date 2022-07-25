@@ -14,6 +14,7 @@ class AddFkToKehadiranTable extends Migration
     public function up()
     {
         Schema::table('kehadiran', function (Blueprint $table) {
+            $table->bigInteger('id_karyawan')->unsigned();
             $table->foreign('id_karyawan')->references('id')->on('users');
         });
     }

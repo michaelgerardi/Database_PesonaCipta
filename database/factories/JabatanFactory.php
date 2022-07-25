@@ -14,7 +14,8 @@ class JabatanFactory extends Factory
     public function definition()
     {
         return [
-            'gol_jabatan' => 'Admin',
+            'gol_jabatan' => '1',
+            'persentase' => '62'
         ];
     }
 }

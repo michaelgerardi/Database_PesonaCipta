@@ -14,7 +14,7 @@ class AlterAlamatlokToStringOnLokasiKerjaTable extends Migration
     public function up()
     {
         Schema::table('lokasi_kerja', function (Blueprint $table) {
-            $table->string('alamat',300)->change();
+            $table->string('alamat_lokasi',300)->change();
         });
     }
 

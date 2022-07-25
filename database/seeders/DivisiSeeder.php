@@ -14,7 +14,7 @@ class DivisiSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\Divisi::factory(1)->create();
+        \App\Models\Divisi::factory(4)->create();
         $divisi = new Divisi;
         $divisi->divisi="Keuangan";
     }

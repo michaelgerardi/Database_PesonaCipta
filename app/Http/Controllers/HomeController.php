@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $id_kar = Auth::user()->id;
+        // $id = User::where('id',$id_kar)->value('id');
+        $kary = User::all();
+        return view('home', compact('id_kar','kary'));
     }
 }
