@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lokasi_Kerja;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
@@ -27,7 +28,8 @@ class HomeController extends Controller
     {
         $id_kar = Auth::user()->id;
         // $id = User::where('id',$id_kar)->value('id');
+        $lokasi = Lokasi_Kerja::all();
         $kary = User::all();
-        return view('home', compact('id_kar','kary'));
+        return view('home', compact('id_kar','kary','lokasi'));
     }
 }

@@ -32,7 +32,7 @@ Route::post('/editprofadmin/updateAdmin', [App\Http\Controllers\AdminController:
 Route::get('datakar/export/',[App\Http\Controllers\KaryawanController::class, 'exportUser'])->name('downloaddatakar');
 Route::get('/datakar', [App\Http\Controllers\KaryawanController::class, 'indexKar'])->name('listdatakar');
 Route::get('/addkaryawan', [App\Http\Controllers\KaryawanController::class, 'formAddKar'])->name('formaddkar');
-Route::post('/addkaryawan/addKar', [App\Http\Controllers\KaryawanController::class, 'addKar'])->name('addDataKar');
+Route::post('/index/addKar', [App\Http\Controllers\AdminController::class, 'addKar'])->name('addDataKar');
 
 //Penggajian
 Route::get('/historygaji', [App\Http\Controllers\KaryawanController::class, 'historyGaji'])->name('historyGaji');

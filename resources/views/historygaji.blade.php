@@ -7,15 +7,16 @@
         <br>
 
     <div class="row">
-        <div class="span4">
-            <button type="button" class="btn btn-secondary">
-                <input type="date" id="tanggal_gaji" name="tanggal_gaji">
-            </button>
-        </div>
 
-        <form action="" method="get">
+        <form action="{{route('historyGaji')}}" method="get">
             <div class="row gx-3 gy-2 align-items-center">
-                <div class="col-sm-7">
+
+                <div class="col-sm">
+                    <label for="divisi" class="col-sm-2 col-form-label">Tanggal Gaji:</label>
+                        <input type="month" id="tanggal_gaji" value="{{date('Y-m')}}" name="tanggal_gaji">
+                </div>
+
+                <div class="col-sm">
                 <label for="divisi" class="col-sm-2 col-form-label">Divisi:</label>
                 <select class="form-select" aria-label=".form-select-sm example" name="divisi" id="divisi">
                     @foreach($data_divisi as $div)
@@ -25,12 +26,16 @@
                 </div>
 
                 <div class="col-sm">
-                <label for="status_gaji" class="col-sm-2 col-form-label">Status Penggajian:</label>
-                <select class="form-select" aria-label=".form-select-sm example" name="statgaji" id="statgaji">
-                    @foreach($his_gaji as $hisga)
-                        <option value="{{$hisga->id}}">{{$hisga->status}}</option>
-                    @endforeach
-                </select>
+                    <label for="status_gaji" class="col-sm-2 col-form-label">Status Penggajian:</label>
+                    <select class="form-select" aria-label=".form-select-sm example" name="statgaji" id="statgaji">
+                        <option value="1">Sudah Digaji</option>
+                        <option value="2">Belum Digaji</option>
+                    </select>
+                </div>
+
+                <div class="col-sm">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                    <a href="{{route('historyGaji')}}" class="btn btn-warning" role="button">Clear</a>
                 </div>
             </div>
 
@@ -62,15 +67,9 @@
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nip')}}</td>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nama_karyawan')}}</td>
-                        {{-- @if (DB::table('history_gaji')->where('id',$gj->id)->value('status')==1)
-                            <td>Sudah Digaji</td>
-                            @else
-                                <td>Belum Digaji</td>
-                        @endif --}}
                         <td>{{DB::table('divisi')->where('id',$gj->id_divisi)->value('divisi') }}</td>
                         <td>{{DB::table('jabatan')->where('id',$gj->id_jabatan)->value('gol_jabatan') }}</td>
-
-                        @if (DB::table('history_gaji')->where('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('id'))->value('status')==1)
+                        @if (DB::table('history_gaji')->where('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('id'))->whereMonth('tanggal_gaji',date('m'))->value('status')==1)
                             <td>Sudah Digaji</td>
                             @else
                             <td>Belum Digaji</td>

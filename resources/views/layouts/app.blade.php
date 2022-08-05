@@ -15,13 +15,11 @@
 	  <script type="text/javascript" src="js/jquery.js"></script>
 	  <script type="text/javascript" src="js/bootstrap.js"></script>
 
-    {{-- Bundle --}}
+    <!-- Bundle -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    {{-- Bundle --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    {{-- Separate --}}
+    <!-- Separate -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
@@ -35,30 +33,55 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('css/mystyle.css') }}" rel="stylesheet"> --}}
+    <!-- {{-- <link href="{{ asset('css/mystyle.css') }}" rel="stylesheet"> --}} -->
+
+    <style>
+        .navbar-cust{
+            background-color: #194189;
+        }
+        .navbar-cust .navbar-brand,
+        .navbar-cust .navbar-text {
+              color: white;
+        }
+    </style>
+
 </head>
 
-<body style = "background-color: #edeff0">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-cust">
         <div class="container-fluid">
+
+        <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toogle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <a class= "navbar-brand" href="/home">
-                <b>Singga</b>
+                <img src="image/pesonacipta.png" alt="" style="margin-left: 30px;">
             </a>
         <ul class="navbar-nav ml-auto">
             @auth
                 @if (Auth::user()->id_jabatan == 4)
                 <li class = "nav-item">
-                    <a class= "nav-link active" href="/home">Home</a>
+                    <a class= "navbar-brand" href="/home">Home</a>
                 </li>
                 <li class = "nav-item">
-                    <a class= "nav-link active" href="/datakar">Data Karyawan</a>
+                    <a class= "navbar-brand" href="/datakar">Data Karyawan</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="navbar-brand dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->nama_karyawan }}
                     </a>
 
@@ -100,10 +123,10 @@
 
                 @elseif (Auth::user()->id_jabatan == 1)
                 <li class="nav-item">
-                    <a class="nav-link active" href="/home">Home</a>
+                    <a class="navbar-brand" href="/home">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="navbar-brand dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->nama_karyawan }}
                     </a>
 
@@ -146,6 +169,7 @@
                 @endif
             @endauth
         </ul>
+    </div>
         </div>
     </nav>
 

@@ -47,17 +47,6 @@
         </div>
 
         <div class="form-group row">
-            <label for="status" class="col-sm-2 col-form-label"><b>Status</b></label>
-            <div class="col-sm-10">
-                <select class="form-select" aria-label="Default select example" name="status" id="status">
-                    <option selected>Pilih Jenis Status Karyawan</option>
-                    <option value="1">Aktif</option>
-                    <option value="2">Tidak Aktif</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label for="tanggungan" class="col-sm-2 col-form-label"><b>Jumlah Tanggungan</b></label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="jml_tanggungan" id="jml_tanggungan" placeholder="Isi dengan jumlah tanggungan karyawan, misal 3">

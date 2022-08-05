@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         {{-- Manajer --}}
-        @if (Auth::user()->id_jabatan == 1)
+        @if (Auth::user()->id_jabatan == 2)
 
         <?php
             if(\Session::has('success')){
@@ -60,9 +60,9 @@
 
                                             <td>{{DB::table('jabatan')->where('id',DB::table('users')->where('id',$kar->id)->value('id_jabatan'))->value('gol_jabatan')}}</td>
 
-                                            <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}} disabled></td>
+                                            <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
 
-                                            <td><input type="time" class="form-control" id="jam_masuk" name="jam_masuk" value={{date("H:i:s")}} disabled></td>
+                                            <td><input type="time" class="form-control" id="jam_masuk" name="jam_masuk" value={{date("H:i:s")}}></td>
 
                                             <td><select class="form-select" aria-label="Default select example" name="status[{{$loop->iteration}}]" id="status">
                                                 <option selected>Pilih Kehadiran</option>
@@ -154,9 +154,9 @@
 
                                             <td>{{DB::table('jabatan')->where('id',DB::table('users')->where('id',$kar->id)->value('id_jabatan'))->value('gol_jabatan')}}</td>
 
-                                            <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}} disabled></td>
+                                            <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
 
-                                            <td><input type="time" class="form-control" id="jam_keluar" name="jam_keluar" value={{date("H:i:s")}} disabled></td>
+                                            <td><input type="time" class="form-control" id="jam_keluar" name="jam_keluar" value={{date("H:i:s")}}></td>
                                         </tr>
                                     </tbody>
                                     @endforeach

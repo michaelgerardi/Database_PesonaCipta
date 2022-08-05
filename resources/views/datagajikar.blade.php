@@ -33,7 +33,6 @@
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{$loop->iteration}}">
                             Detail
                           </button>
-                        <a href="#" type="button" class="btn btn-info">Download Paklarin</a>
                     </td>
                 </tr>
             </tbody>
@@ -51,15 +50,14 @@
                                 <label for="nip" class="col-sm-2 col-form-label"><b>NIP</b></label>
                                 <div class="col-sm-10">
                                     <input type="hidden" class="form-control" name="id" value="{{ $hj->id }}">
-                                    {{-- <input type="text" class="form-control" name="nip" id="nip" value="{{ DB::table('users')->where('id',$datagaji)->value('nip') }}" disabled> --}}
-                                    <input type="text" class="form-control" name="nip" id="nip" value="{{DB::table('users')->where('id',$datagaji)->value('nip')}}" disabled>
+                                    <input type="text" class="form-control" name="nip" id="nip" value="{{DB::table('users')->where('id',$id_karyawan)->value('nip')}}" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="namakaryawan" class="col-sm-2 col-form-label"><b>Nama Karyawan</b></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nama_karyawan" id="nama_karyawan" value="{{ DB::table('users')->where('id',$datagaji)->value('nama_karyawan') }}" disabled>
+                                    <input type="text" class="form-control" name="nama_karyawan" id="nama_karyawan" value="{{ DB::table('users')->where('id',$id_karyawan)->value('nama_karyawan') }}" disabled>
                                 </div>
                             </div>
 
@@ -74,21 +72,7 @@
                                 <label for="gajipokok" class="col-sm-2 col-form-label"><b>Gaji Pokok</b></label>
                                 <div class="col-sm-10">
                                     <input type="hidden" class="form-control" name="id_gaji_karyawan" value="{{ $hj->id }}">
-                                    <input type="text" onchange="myFunction()" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}}" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="gajitun" class="col-sm-2 col-form-label"><b>Gaji Tunjangan</b></label>
-                                <div class="col-sm-10">
-                                    <input type="text" onchange="myFunction()" class="form-control" name="gaji_tunjangan" id="gaji_tunjangan" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_tunjangan')}}" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="thr" class="col-sm-2 col-form-label"><b>THR</b></label>
-                                <div class="col-sm-10">
-                                    <input type="text" onchange="myFunction()" class="form-control" name="thr" id="thr" placeholder="Isi dengan thr" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('thr')}}" disabled>
+                                    <input type="text" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{DB::table('data_gaji')->where('id',$hj->$karyawan)->value('gaji_pokok')}}" disabled>
                                 </div>
                             </div>
 

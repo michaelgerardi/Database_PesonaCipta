@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Exports\DataGajiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Jabatan;
@@ -46,20 +47,74 @@ class AdminController extends Controller
     {
         $id = Auth::user()->id;
         User::where('id', $id)->update([
+            'nip'=>$request->nip,
             'nama_karyawan'=>$request->nama_karyawan,
             'jenis_kelamin'=>$request->jenis_kelamin,
             'no_ktp'=>$request->no_ktp,
             'no_kk'=>$request->no_kk,
             'jml_tanggungan'=>$request->jml_tanggungan,
             'alamat'=>$request->alamat,
-            'umur'=>$request->umur,
             'tgl_lahir'=>$request->tgl_lahir,
             'npwp'=>$request->npwp,
             'no_rek'=>$request->no_rek,
-            'email'=>$request->no_rek,
+            'email'=>$request->email,
             'no_bpjs'=>$request->no_bpjs,
+            'status'=>$request->status,
+            'password'=> Hash::make($request->password),
+            'id_jabatan' => $request->id_jabatan,
+            'id_divisi' => $request->id_divisi,
+            'id_lokasikerja' => $request->id_lokasikerja
         ]);
         return redirect('/profileadmin');
+    }
+
+    // TAMBAH KARYAWAN
+    public function addKar(Request $request)
+    {
+        $id =  Auth::user()->id;
+        $id_admin = User::where('id',$id)->value('id');
+        $this->validate($request,[
+            'nip' => 'required',
+            'nama_karyawan' => 'required',
+            'jenis_kelamin' => 'required',
+            'no_ktp' => 'required',
+            'no_kk' => 'required',
+            'jml_tanggungan' => 'required|numeric',
+            'alamat' => 'required',
+            'tgl_lahir' => 'required',
+            'npwp' => 'required',
+            'no_rek' => 'required',
+            'email' => 'required',
+            'no_bpjs' => 'required',
+            'status' => 'required',
+            'password' => 'required',
+            'id_jabatan' => 'required',
+            'id_divisi' => 'required',
+            'id_lokasikerja' => 'required'
+        ]);
+
+        $user= new User([
+            'nip' => $request->nip,
+            'nama_karyawan' => $request->nama_karyawan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'no_ktp' => $request->no_ktp,
+            'no_kk' => $request->no_kk,
+            'jml_tanggungan' => $request->jml_tanggungan,
+            'alamat' => $request->alamat,
+            'tgl_lahir' => $request->tgl_lahir,
+            'npwp' => $request->npwp,
+            'no_rek' => $request->no_rek,
+            'email' => $request->email,
+            'no_bpjs' => $request->no_bpjs,
+            'status' => $request->status,
+            'password' => Hash::make($request->password),
+            'id_jabatan' => $request->id_jabatan,
+            'id_divisi' => $request->id_divisi,
+            'id_lokasikerja' => $request->id_lokasikerja
+        ]);
+		$user->save();
+        return redirect("/datakar");
+        // return $user;
     }
 
     //Lokasi Kerja
@@ -78,6 +133,15 @@ class AdminController extends Controller
     {
         // $id_karyawan = Auth::user()->id;
         $id = Lokasi_Kerja::where('id',$request->id)->value('id');
+        $this->validate($request,[
+            'nama_lokasi' => 'required',
+            'alamat_lokasi' => 'required',
+            'kode_pos' => 'required',
+            'no_telp' => 'required',
+            'fax' => 'required',
+            'umr' => 'required',
+        ]);
+
         DB::table('lokasi_kerja')->insert([
             'nama_lokasi'=>$request->nama_lokasi,
             'alamat_lokasi'=>$request->alamat_lokasi,
@@ -117,25 +181,25 @@ class AdminController extends Controller
     // }
 
     //Kontrak Kerja
-    public function kontrakKerja($id)
-    {
-        $user = User::where('id',$id)->first();
-        return view('formkontrakkerja',compact('user'));
-        // return $user;
-    }
+    // public function kontrakKerja($id)
+    // {
+    //     $user = User::where('id',$id)->first();
+    //     return view('formkontrakkerja',compact('user'));
+    //     // return $user;
+    // }
 
-    public function addKontrakKerja(Request $request)
-    {
-        DB::table('kontrak_kerja')->insert([
-            'nilai_kontrak'=>$request->nilai_kontrak,
-            'awal_kontrak'=>$request->awal_kontrak,
-            'akhir_kontrak'=>$request->akhir_kontrak,
-            'durasi_kontrak'=>$request->durasi_kontrak,
-            'id_lokasi_kerja'=>$request->id_lokasi_kerja,
-            'id_karyawan'=>$request->id_karyawan
-        ]);
-        return redirect('/datakar');
-    }
+    // public function addKontrakKerja(Request $request)
+    // {
+    //     DB::table('kontrak_kerja')->insert([
+    //         'nilai_kontrak'=>$request->nilai_kontrak,
+    //         'awal_kontrak'=>$request->awal_kontrak,
+    //         'akhir_kontrak'=>$request->akhir_kontrak,
+    //         'durasi_kontrak'=>$request->durasi_kontrak,
+    //         'id_lokasi_kerja'=>$request->id_lokasi_kerja,
+    //         'id_karyawan'=>$request->id_karyawan
+    //     ]);
+    //     return redirect('/datakar');
+    // }
 
     //Data Jabatan
     public function indexjabatan()
@@ -174,27 +238,27 @@ class AdminController extends Controller
     // }
 
     //Data Paklarin
-    public function paklarin($id)
-    {
-        $user = User::where('id',$id)->first();
-        // $konker = Kontrak_Kerja::where('id',$id)->first();
-        return view('formpaklarin',compact('user'));
-        // return $user;
-    }
+    // public function paklarin($id)
+    // {
+    //     $user = User::where('id',$id)->first();
+    //     // $konker = Kontrak_Kerja::where('id',$id)->first();
+    //     return view('formpaklarin',compact('user'));
+    //     // return $user;
+    // }
 
-    public function addDataPak(Request $request)
-    {
-        DB::table('data_paklarin')->insert([
-            'nama_karyawan'=>$request->nama_karyawan,
-            'no_ktp'=>$request->no_ktp,
-            'tgl_awal_kerja'=>$request->tgl_awal_kerja,
-            'tgl_akhir_kerja'=>$request->tgl_akhir_kerja,
-            'no_bpjs'=>$request->no_bpjs,
-            'id_karyawan'=>$request->id_karyawan,
-            'id_kontrak_kerja'=>$request->id_kontrak_kerja
-        ]);
-        return redirect('/datakar');
-    }
+    // public function addDataPak(Request $request)
+    // {
+    //     DB::table('data_paklarin')->insert([
+    //         'nama_karyawan'=>$request->nama_karyawan,
+    //         'no_ktp'=>$request->no_ktp,
+    //         'tgl_awal_kerja'=>$request->tgl_awal_kerja,
+    //         'tgl_akhir_kerja'=>$request->tgl_akhir_kerja,
+    //         'no_bpjs'=>$request->no_bpjs,
+    //         'id_karyawan'=>$request->id_karyawan,
+    //         'id_kontrak_kerja'=>$request->id_kontrak_kerja
+    //     ]);
+    //     return redirect('/datakar');
+    // }
 
     // public function downDataPak($data)
     // {

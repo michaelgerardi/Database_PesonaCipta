@@ -23,8 +23,8 @@ class CustomLoginController extends Controller
     public function login (Request $request)
     {
         $this->validate($request, [
-            'nip' => 'required',
-            'password' => 'required',
+            'nip' => 'required|max:13',
+            'password' => 'required|max:9',
         ]);
 
         if(auth()->guard('web')->attempt([

@@ -44,13 +44,6 @@
     </div>
 
     <div class="form-group row">
-        <label for="status" class="col-sm-2 col-form-label"><b>Status</b></label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="status" id="status" value="{{ $admin->status }}" disabled>
-        </div>
-    </div>
-
-    <div class="form-group row">
         <label for="tanggungan" class="col-sm-2 col-form-label"><b>Jumlah Tanggungan</b></label>
         <div class="col-sm-10">
             <input type="text" class="form-control" name="jml_tanggungan" id="jml_tanggungan" value="{{ $admin->jml_tanggungan }}" disabled>
@@ -68,13 +61,6 @@
         <label for="tgllahir" class="col-sm-2 col-form-label"><b>Tanggal Lahir</b></label>
         <div class="col-sm-10">
             <input type="text" class="form-control" name="tgl_lahir" id="tgl_lahir" value="{{ $admin->tgl_lahir }}" disabled>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="umur" class="col-sm-2 col-form-label"><b>Umur</b></label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="umur" id="umur" value="{{ $admin->umur }}" disabled>
         </div>
     </div>
 
@@ -103,13 +89,6 @@
         <label for="nobpjs" class="col-sm-2 col-form-label"><b>Nomor BPJS</b></label>
         <div class="col-sm-10">
             <input type="text" class="form-control" name="no_bpjs" id="no_bpjs" value="{{ $admin->no_bpjs }}" disabled>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="masajabatan" class="col-sm-2 col-form-label"><b>Masa Jabatan</b></label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="masa_jabatan" id="masa_jabatan" value="{{ $admin->masa_jabatan }}" disabled>
         </div>
     </div>
 

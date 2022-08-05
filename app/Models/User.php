@@ -23,20 +23,18 @@ class User extends Authenticatable
         'jenis_kelamin',
         'no_ktp',
         'no_kk',
-        'status',
         'jml_tanggungan',
         'alamat',
-        'umur',
         'tgl_lahir',
         'npwp',
         'no_rek',
         'email',
         'no_bpjs',
         'password',
-        'masa_jabatan',
+        'status',
         'id_jabatan',
         'id_divisi',
-        'id_lok_kerja'
+        'id_lokasikerja'
     ];
 
     /**

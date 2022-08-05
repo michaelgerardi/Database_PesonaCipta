@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DataGajiExport;
 use App\Models\User;
 use App\Models\Jabatan;
 use App\Models\Divisi;
 use App\Models\Kehadiran;
 use App\Models\Data_Gaji;
 use App\Models\History_Gaji;
+use App\Models\Lokasi_Kerja;
 use Auth;
 use PDF;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
@@ -25,10 +26,10 @@ class KaryawanController extends Controller
         $this->middleware('auth');
     }
 
-    public function formAddKar()
-    {
-        return view('addkaryawan');
-    }
+    // public function formAddKar()
+    // {
+    //     return view('addkaryawan');
+    // }
 
     public function indexKar() //Admin Tabel
     {
@@ -39,13 +40,31 @@ class KaryawanController extends Controller
         // return $kary;
     }
 
-    public function historyGaji()
+    public function historyGaji(Request $request)
     {
+        if (count($request->all())>0) {
+            $pieces = explode("-", $request->tanggal_gaji);
+            $histgaji=History_Gaji::where('status','1')->whereYear('tanggal_gaji',$pieces[0])->whereMonth('tanggal_gaji',$pieces[1])->pluck('id_gaji_karyawan');
+            if ($request->statgaji=='1') {
+                $datagaji=Data_Gaji::whereIn('id',$histgaji)->pluck('id_karyawan');
+            }elseif ($request->statgaji=='2') {
+                $data=Data_Gaji::whereIn('id',$histgaji)->pluck('id_karyawan');
+                $datagaji=User::whereNotIn('id',$data)->pluck('id');
+            }
+            
+            $gaji=User::whereIn('id',$datagaji)->where([
+                ['id_divisi',$request->divisi]
+                ])->get();
+        }
+        else{
+            $gaji = User::all();
+        }
+
         $data_divisi = Divisi::all();
         $his_gaji = History_Gaji::all();
-        $gaji = User::all();
         return view('historygaji',compact('gaji','data_divisi','his_gaji'));
-        // return $gaji;
+        
+        // return $pieces[1];
     }
 
     public function formGaji($id)
@@ -66,7 +85,7 @@ class KaryawanController extends Controller
         $jmlabsen = Kehadiran::where([
             ['id_karyawan',$request->id],
             ])->whereMonth('tanggal_masuk',$transdate)->count(); //hari masuk kerja
-        $basegaji=0; //antisipasi error
+        $basegaji=0; //deklarasi awal supaya tidak terjadi error
         $basegaji=($jmlabsen*8)*$perjam; //jumlah absen dikali 8 jam kerja dikali gajiperjam
         $baligasik = Kehadiran::where([
             ['id_karyawan',$request->id],
@@ -98,7 +117,7 @@ class KaryawanController extends Controller
         ]);
 
         return redirect('/historygaji');
-        //return $potonggaji;
+        // return $potonggaji;
     }
 
     public function formEditGaji($id)
@@ -106,7 +125,8 @@ class KaryawanController extends Controller
         // $id_kar = Data_Gaji::where('id',$id)->value('id_karyawan');
         $user = User::where('id',$id)->first();
         $gaji = Data_Gaji::where('id_karyawan',$id)->first();
-        return view('editgajikar', compact('user','gaji'));
+        $lokasi = Lokasi_Kerja::where('id_user',$id)->first();
+        return view('editgajikar', compact('user','gaji','lokasi'));
         // return $user;
     }
 
@@ -135,58 +155,6 @@ class KaryawanController extends Controller
         return Excel::download(new DataGajiExport, 'data_gaji.xlsx');
     }
 
-    public function addKar(Request $request)
-    {
-        // $this->validate($request, [
-        //     'id' => 'required',
-        //     'nip' => 'required',
-        //     'nama_karyawan' => 'required',
-        //     'jenis_kelamin' => 'required',
-        //     'no_ktp' => 'required',
-        //     'no_kk' => 'required',
-        //     'status' => 'required',
-        //     'jml_tanggungan' => 'required',
-        //     'alamat' => 'required',
-        //     'umur' => 'required',
-        //     'tgl_lahir' => 'required',
-        //     'npwp' => 'required',
-        //     'no_rek' => 'required',
-        //     'email' => 'required',
-        //     'no_bpjs' => 'required',
-        //     'password' => 'required',
-        //     'masa_jabatan' => 'required',
-        //     'id_jabatan' => 'required',
-        //     'id_divisi' => 'required'
-        // ]);
-
-        $id =  Auth::user()->id;
-        $id_admin = User::where('id',$id)->value('id');
-        $user= new User([
-            'id' => $request->id,
-            'nip' => $request->nip,
-            'nama_karyawan' => $request->nama_karyawan,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'no_ktp' => $request->no_ktp,
-            'no_kk' => $request->no_kk,
-            'status' => $request->status,
-            'jml_tanggungan' => $request->jml_tanggungan,
-            'alamat' => $request->alamat,
-            'umur' => $request->umur,
-            'tgl_lahir' => $request->tgl_lahir,
-            'npwp' => $request->npwp,
-            'no_rek' => $request->no_rek,
-            'email' => $request->email,
-            'no_bpjs' => $request->no_bpjs,
-            'password' => Hash::make($request->password),
-            'masa_jabatan' => $request->masa_jabatan,
-            'id_jabatan' => $request->id_jabatan,
-            'id_divisi' => $request->id_divisi
-        ]);
-		$user->save();
-        return redirect("/datakar");
-        // return $id_admin;
-    }
-
     public function exportUser()
     {
         return Excel::download(new UsersExport, 'users.xlsx');
@@ -197,18 +165,25 @@ class KaryawanController extends Controller
     {
         $id_karyawan = Auth::user()->id;
         $divisi = User::where('id',$id_karyawan)->value('id_divisi');
-        $karyawan = User::where([['id_divisi',$divisi],['id_jabatan','!=','4']])->get();
-        return view ('dataabsenkar',compact('karyawan'));
-    } //manajer
+        $karyawan = User::where([['id_divisi',$divisi],['id',$id_karyawan]])->first();
+        $kehadiran = Kehadiran::where('id_karyawan',$id_karyawan)->get();
+        return view ('dataabsenkar',compact('karyawan','kehadiran'));
+        // return $karyawan;
+    } 
+    
+    //manajer
 
     public function lihatAbsen()
     {
         $idkar = Auth::user()->id;
         $divisi = User::where('id',$idkar)->value('id_divisi');
-        $karyawan = User::where([['id_divisi',$divisi],['id_jabatan','!=','4'],['id',$idkar]])->first();
-        $kehadiran = Kehadiran::where('id_karyawan',$karyawan->id)->get();
+        $karyawan = User::where([['id_divisi',$divisi]])->get();
+        $karyawanid = User::where([['id_divisi',$divisi]])->pluck('id');
+        $kehadiran = Kehadiran::whereIn('id_karyawan',$karyawanid)->get();
         return view ('dataabsenkar',compact('karyawan','kehadiran'));
-    }//karyawan biasa
+        // return $karyawan;
+    }
+    //karyawan biasa
 
     public function addMasuk(Request $request)
     {
@@ -223,13 +198,14 @@ class KaryawanController extends Controller
             $absen = new Kehadiran([
                 'id_karyawan' => $request->id[$i],
                 'tanggal_masuk' => $tanggal,
-                'jam_masuk' => $time,
+                // 'jam_masuk' => $time,
+                'jam_masuk' => $request->jam_masuk,
                 'status' => $request->status[$i]
             ]);
             $i++;
             $absen->save();
         }
-        return redirect("/dataabsenkar");
+        return redirect("/dataabsenkars");
         // return $absen;
     }
 
@@ -249,13 +225,14 @@ class KaryawanController extends Controller
             $date2=strtotime($timeGoHome);
             $diff=round((($date2-$date1)/3600)-8,1);
             Kehadiran::where([['id_karyawan',$request->id[$i]],['tanggal_masuk',$tanggal]])->update([
-                'jam_keluar' => $timeGoHome,
+                // 'jam_keluar' => $timeGoHome,
+                'jam_keluar' => $request->jam_keluar,
                 'lembur' => $diff
             ]);
             $i++;
             
         }
-        return redirect ("/dataabsenkar")->with('success');
+        return redirect ("/dataabsenkars")->with('success');
       
          //return $diff;
     }
@@ -267,7 +244,7 @@ class KaryawanController extends Controller
         $datagaji = Data_Gaji::where('id_karyawan',$id_karyawan)->value('id');
         $karyawan = Data_Gaji::where([['id',$datagaji]])->first();
         $histogaji = History_Gaji::where('id_gaji_karyawan',$datagaji)->get();
-        return view ('datagajikar',compact('histogaji','datagaji','karyawan'));
+        return view ('datagajikar',compact('histogaji','datagaji','karyawan','id_karyawan'));
         // return $histogaji;
     }
 }
