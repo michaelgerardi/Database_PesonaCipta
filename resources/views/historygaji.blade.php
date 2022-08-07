@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <br>
-        <h3>History Gaji Pegawai</h3>
+        <h3>Penggajian Karyawan</h3>
         <br>
 
     <div class="row">
@@ -12,7 +12,7 @@
             <div class="row gx-3 gy-2 align-items-center">
 
                 <div class="col-sm">
-                    <label for="divisi" class="col-sm-2 col-form-label">Tanggal Gaji:</label>
+                    <label for="divisi" class="col-sm-2 col-form-label">Bulan:</label>
                         <input type="month" id="tanggal_gaji" value="{{date('Y-m')}}" name="tanggal_gaji">
                 </div>
 
@@ -25,6 +25,15 @@
                 </select>
                 </div>
 
+                {{-- <div class="col-sm">
+                    <label for="lokasi" class="col-sm-2 col-form-label">Lokasi Mitra:</label>
+                    <select class="form-select" aria-label=".form-select-sm example" name="lokasi_mitra" id="lokasi_mitra">
+                        @foreach()
+                            <option value="#"></option>
+                        @endforeach
+                    </select>
+                </div> --}}
+
                 <div class="col-sm">
                     <label for="status_gaji" class="col-sm-2 col-form-label">Status Penggajian:</label>
                     <select class="form-select" aria-label=".form-select-sm example" name="statgaji" id="statgaji">
@@ -35,7 +44,7 @@
 
                 <div class="col-sm">
                     <button class="btn btn-primary" type="submit">Search</button>
-                    <a href="{{route('historyGaji')}}" class="btn btn-warning" role="button">Clear</a>
+                    <a href="{{route('historyGaji')}}" class="btn btn-danger" role="button">Clear</a>
                 </div>
             </div>
 
@@ -69,7 +78,7 @@
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nama_karyawan')}}</td>
                         <td>{{DB::table('divisi')->where('id',$gj->id_divisi)->value('divisi') }}</td>
                         <td>{{DB::table('jabatan')->where('id',$gj->id_jabatan)->value('gol_jabatan') }}</td>
-                        @if (DB::table('history_gaji')->where('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('id'))->whereMonth('tanggal_gaji',date('m'))->value('status')==1)
+                        @if (DB::table('history_gaji')->whereYear('tanggal_gaji',$pieces[0])->whereMonth('tanggal_gaji',$pieces[1])->whereIn('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->pluck('id'))->value('status')==1)
                             <td>Sudah Digaji</td>
                             @else
                             <td>Belum Digaji</td>

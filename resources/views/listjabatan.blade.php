@@ -3,16 +3,14 @@
 @section('content')
     <div class="container">
         <br>
-        <h3><b>List Jabatan</b></h3>
-
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">Tambah +</button>
-        <br>
-        <br>
+        <h3><b>List Jabatan</b>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="margin-left: 1000px">Tambah Jabatan</button>
+        </h3>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Nomor</th>
-                    <th scope="col">Golongan Jabatan</th>
+                    <th scope="col">Jabatan</th>
                     <th scope="col">Persentase</th>
                     <th scope="col">Opsi</th>
                 </tr>

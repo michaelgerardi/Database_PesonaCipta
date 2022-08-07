@@ -13,8 +13,8 @@ class Data_Gaji extends Model
 
     protected $fillable = [
         'gaji_pokok',
-        'gaji_tunjangan',
-        'thr',
+        // 'gaji_tunjangan',
+        // 'thr',
         'bpjs',
         'id_karyawan'
     ];

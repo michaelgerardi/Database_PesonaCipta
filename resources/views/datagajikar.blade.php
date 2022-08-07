@@ -22,17 +22,17 @@
                     <th scope="row">{{$loop->iteration}}</th>
                     <td>{{$hj->tanggal_gaji}}</td>
 
-                    <td>
-                        {{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_tunjangan')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('thr')-DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('bpjs')}}
+                    <td>Rp 
+                        {{-- {{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_tunjangan')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('thr')-DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}} --}}
+                        {{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}} ,-
                     </td>
                     @if ($hj->status=1)
                         <td>Sudah Digaji</td>
                         @else <td>Belum Digaji</td>
                     @endif
                     <td>
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{$loop->iteration}}">
-                            Detail
-                          </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$loop->iteration}}">Detail</button>
+                        <a class="btn btn-secondary" role="button" href="">Download Slip</a>
                     </td>
                 </tr>
             </tbody>
@@ -86,14 +86,16 @@
                             <div class="form-group row">
                                 <label for="totalgaji" class="col-sm-2 col-form-label"><b>Total Gaji</b></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="valtot" id="valtot" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_tunjangan')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('thr')-DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('bpjs')}}" disabled>
+                                    {{-- <input type="text" class="form-control" name="valtot" id="valtot" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_tunjangan')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('thr')-DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('bpjs')}}" disabled> --}}
+                                    <input type="text" class="form-control" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}}" disabled>
+
                                 </div>
                             </div>
 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a href="/formpaklarin/{{$hj->id}}" type="button" class="btn btn-primary">Download Paklarin</a>
+                            {{-- <a href="/formpaklarin/{{$hj->id}}" type="button" class="btn btn-primary">Download Paklarin</a> --}}
                         </div>
                     </div>
                 </div>

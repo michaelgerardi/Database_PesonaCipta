@@ -34,12 +34,22 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">List Divisi</h5>
+                    <p class="card-text">Klik tombol di bawah untuk melihat divisi karyawan Pesona Cipta</p>
+                    <a href="#" type="button" class="btn btn-warning">Lihat</a>
+                </div>
+            </div>
+        </div>
         @elseif (Auth::user()->id_jabatan == 1)
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Daftar Absensi</h5>
-                    <p class="card-text">Klik tombol di bawah untuk melihat absensi karyawan Pesona Cipta</p>
+                    <h5 class="card-title">Daftar Presensi</h5>
+                    <p class="card-text">Klik tombol di bawah untuk melihat daftar presensi karyawan Pesona Cipta</p>
                     <a href="" type="button" class="btn btn-warning">Lihat</a>
                 </div>
             </div>
@@ -209,21 +219,6 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="masajabatan" class="col-sm-2 col-form-label"><b>Masa Jabatan</b></label>
-                            <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" name="masa_jabatan" id="masa_jabatan">
-                                    <option selected>Pilih Masa Jabatan</option>
-                                    <option value="1">1 Tahun</option>
-                                    <option value="2">2 Tahun</option>
-                                    <option value="3">3 Tahun</option>
-                                    <option value="4">4 Tahun</option>
-                                    <option value="5">5 Tahun</option>
-                                    <option value="6">Masa Jabatan Hingga Pensiun</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="jabatan" class="col-sm-2 col-form-label"><b>Golongan Jabatan</b></label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" name="id_jabatan" id="id_jabatan">
@@ -266,8 +261,8 @@
 
     <div class="row">
         <div class="col">
-            <h3 style="margin-top: 10px">Data Karyawan</h3>
-            <a href="{{route('downloaddatakar')}}" type="button" class="btn btn-primary" style="margin-bottom:10px;">Download</a>
+            <h3 style="margin-top: 10px">Data Karyawan
+                <a href="{{route('downloaddatakar')}}" type="button" class="btn btn-primary" style="margin-bottom:10px; margin-left:980px;">Download</a></h3>
             <table class="table">
                 <thead class="thead">
                     <tr>
@@ -390,7 +385,7 @@
                                     <div class="form-group row">
                                         <label for="email" class="col-sm-2 col-form-label"><b>Email</b></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="email" id="email" value="{{ $kar->no_rek }}" readonly>
+                                            <input type="text" class="form-control" name="email" id="email" value="{{ $kar->email }}" readonly>
                                         </div>
                                     </div>
 

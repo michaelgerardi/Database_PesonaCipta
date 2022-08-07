@@ -42,6 +42,7 @@ class KaryawanController extends Controller
 
     public function historyGaji(Request $request)
     {
+        $pieces = explode("-",date('Y-m'));
         if (count($request->all())>0) {
             $pieces = explode("-", $request->tanggal_gaji);
             $histgaji=History_Gaji::where('status','1')->whereYear('tanggal_gaji',$pieces[0])->whereMonth('tanggal_gaji',$pieces[1])->pluck('id_gaji_karyawan');
@@ -62,9 +63,9 @@ class KaryawanController extends Controller
 
         $data_divisi = Divisi::all();
         $his_gaji = History_Gaji::all();
-        return view('historygaji',compact('gaji','data_divisi','his_gaji'));
+        return view('historygaji',compact('gaji','data_divisi','his_gaji','pieces'));
         
-        // return $pieces[1];
+        //return $gaji;
     }
 
     public function formGaji($id)
@@ -100,13 +101,16 @@ class KaryawanController extends Controller
         $bonus=0;
         $bonus=$balikeri*15000; //kalkulasi gaji lembur
         $gajibulaninikotor=$basegaji+$potonggaji+$bonus; //gaji kotor
-        $bpjs = $gajibulaninikotor*1.74; //pengurangan BPJS tenaga kerja
+        if($gajibulaninikotor<0){
+            $gajibulaninikotor=0;
+        }
+        $bpjs = $gajibulaninikotor*0.01; //pengurangan BPJS tenaga kerja
         $gajibulanbersih = $gajibulaninikotor-$bpjs; //gaji bersih setelah bpjs
         DB::table('data_gaji')->insert([
             'id_karyawan'=>$request->id,
             'gaji_pokok'=>$gajibulanbersih,
-            'gaji_tunjangan'=>$request->gaji_tunjangan,
-            'thr'=>$request->thr,
+            // 'gaji_tunjangan'=>$request->gaji_tunjangan,
+            // 'thr'=>$request->thr,
             'bpjs'=>$bpjs,
         ]);
         $id_gaji = Data_Gaji::where('id_karyawan',$request->id)->latest('created_at')->value('id');
@@ -117,7 +121,7 @@ class KaryawanController extends Controller
         ]);
 
         return redirect('/historygaji');
-        // return $potonggaji;
+        // return $gajibulanbersih;
     }
 
     public function formEditGaji($id)
@@ -159,20 +163,21 @@ class KaryawanController extends Controller
     {
         return Excel::download(new UsersExport, 'users.xlsx');
     }
-
-    //Absensi
-    public function dataAbsenKar()
-    {
-        $id_karyawan = Auth::user()->id;
-        $divisi = User::where('id',$id_karyawan)->value('id_divisi');
-        $karyawan = User::where([['id_divisi',$divisi],['id',$id_karyawan]])->first();
-        $kehadiran = Kehadiran::where('id_karyawan',$id_karyawan)->get();
-        return view ('dataabsenkar',compact('karyawan','kehadiran'));
-        // return $karyawan;
-    } 
     
-    //manajer
+    
+    //karyawan biasa
+     public function dataAbsenKar()
+     {
+         $id_karyawan = Auth::user()->id;
+         $divisi = User::where('id',$id_karyawan)->value('id_divisi');
+         $karyawan = User::where([['id_divisi',$divisi],['id',$id_karyawan]])->first();
+         $kehadiran = Kehadiran::where('id_karyawan',$id_karyawan)->get();
+         return view ('dataabsenkar',compact('karyawan','kehadiran'));
+         // return $karyawan;
+     } 
 
+     //Absensi
+     //Supervisor
     public function lihatAbsen()
     {
         $idkar = Auth::user()->id;
@@ -183,13 +188,12 @@ class KaryawanController extends Controller
         return view ('dataabsenkar',compact('karyawan','kehadiran'));
         // return $karyawan;
     }
-    //karyawan biasa
 
     public function addMasuk(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');
         $id = Auth::User()->id;
-        $tanggal = date("Y-m-d");
+        // $tanggal = date("Y-m-d");
         $time = date("H:i:s");
         $id_pic = User::where('id',$id)->value('id');
         $i=1;
@@ -197,9 +201,10 @@ class KaryawanController extends Controller
         {
             $absen = new Kehadiran([
                 'id_karyawan' => $request->id[$i],
-                'tanggal_masuk' => $tanggal,
+                // 'tanggal_masuk' => $tanggal,
+                'tanggal_masuk' => $request->tanggal_masuk[$i],
                 // 'jam_masuk' => $time,
-                'jam_masuk' => $request->jam_masuk,
+                'jam_masuk' => $request->jam_masuk[$i],
                 'status' => $request->status[$i]
             ]);
             $i++;
@@ -213,7 +218,8 @@ class KaryawanController extends Controller
     {
         date_default_timezone_set('Asia/Jakarta');
         $id = Auth::User()->id;
-        $tanggal = date("Y-m-d");
+        // $tanggal = date("Y-m-d");
+        $tanggal = $request->tanggal_masuk;
         // $timeGoHome = strtotime('17:00:00');
         $timeGoHome = date("H:i:s");
         $id_pic = User::where('id',$id)->value('id');
@@ -222,11 +228,12 @@ class KaryawanController extends Controller
         {
             $jammsk = Kehadiran::where([['id_karyawan',$request->id[$i]],['tanggal_masuk',$tanggal]])->value('jam_masuk');
             $date1=strtotime($jammsk);
-            $date2=strtotime($timeGoHome);
+            // $date2=strtotime($timeGoHome);
+            $date2=strtotime($request->jam_keluar[$i]);
             $diff=round((($date2-$date1)/3600)-8,1);
             Kehadiran::where([['id_karyawan',$request->id[$i]],['tanggal_masuk',$tanggal]])->update([
                 // 'jam_keluar' => $timeGoHome,
-                'jam_keluar' => $request->jam_keluar,
+                'jam_keluar' => $request->jam_keluar[$i],
                 'lembur' => $diff
             ]);
             $i++;
@@ -234,7 +241,7 @@ class KaryawanController extends Controller
         }
         return redirect ("/dataabsenkars")->with('success');
       
-         //return $diff;
+        //  return $request->id[5];
     }
 
     //Penggajian

@@ -2,21 +2,20 @@
 
 @section('content')
     <div class="container">
-
-        <div class="row g-2">
+        <div class="row">
             <div class="col">
                 <br>
-                <h3>Lokasi Kerja</h3>
-                <a href="{{route('formaddlokkerja')}}" type="button" class="btn btn-primary">Tambah Data +</a>
-                <br>
+                <h3>Lokasi Mitra
+                    <a href="{{route('formaddlokkerja')}}" type="button" class="btn btn-primary" style="margin-left:1000px">Tambah Mitra</a>
+                </h3>
                 <table class="table">
-                    <thead class="thead">
+                    <thead>
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Nama Lokasi</th>
-                            <th scope="col">Alamat Lokasi</th>
+                            <th scope="col">Nama Mitra</th>
+                            <th scope="col">Alamat</th>
                             <th scope="col">Kode Pos</th>
-                            <th scope="col">Nomor Telepon</th>
+                            <th scope="col">Telepon</th>
                             <th scope="col">Fax</th>
                             <th scope="col">UMR</th>
                             <th scope="col">Opsi</th>
@@ -31,7 +30,7 @@
                                 <td>{{$lk->kode_pos}}</td>
                                 <td>{{$lk->no_telp}}</td>
                                 <td>{{$lk->fax}}</td>
-                                <td>{{$lk->umr}}</td>
+                                <td>Rp{{$lk->umr}},-</td>
                                 <td>
                                     <a href="{{route('formeditlokkerja',['id' => $lk->id])}}" type="button" class="btn btn-warning">Edit</a>
                                     <a href="{{route('delloker',['id'=>$lk->id])}}" type="button" class="btn btn-danger">Delete</a>

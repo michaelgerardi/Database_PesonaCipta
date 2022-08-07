@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">List Jabatan</h5>
@@ -79,7 +79,7 @@
                     <a href="{{route('listjabatan')}}" type="button" class="btn btn-warning">Lihat</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <br>
 

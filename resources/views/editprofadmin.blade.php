@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <br>
-    <h3><b>Edit Admin Profile</b></h3>
+    <h3><b>Edit Profile</b></h3>
     <br>
 
     <form action="{{ route('upprofiladmin') }}" method="post" enctype='multipart/form-data'>
@@ -27,7 +27,11 @@
     <div class="form-group row">
         <label for="jenis_kelamin" class="col-sm-2 col-form-label"><b>Jenis Kelamin</b></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="jenis_kelamin" id="jenis_kelamin" value="{{ $admin->jenis_kelamin }}">
+            <select class="form-select" aria-label="Default select example" name="jenis_kelamin" id="jenis_kelamin">
+                <option value="1">Pria</option>
+                <option value="2">Wanita</option>
+            </select>
+            
         </div>
     </div>
 
@@ -94,12 +98,16 @@
         </div>
     </div>
 
-    {{-- <div class="form-group row">
-        <label for="password" class="col-sm-2 col-form-label"><b>Password</b></label>
+    <div class="form-group row">
+        <label for="status" class="col-sm-2 col-form-label"><b>Status</b></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="password" id="password" value="{{ $admin->password }}">
+            @if($admin->status==1)
+                <input type="text" class="form-control" name="status" id="status" value="Aktif"readonly>
+                    @else
+                        <input type="text" class="form-control" name="status" id="status" value="Non-Aktif"readonly>
+                @endif
         </div>
-    </div> --}}
+    </div>
 
     <div class="form-group row">
         <label for="jabatan" class="col-sm-2 col-form-label"><b>Golongan Jabatan</b></label>
@@ -118,7 +126,7 @@
     <div class="form-group row">
         <label for="lokkerja" class="col-sm-2 col-form-label"><b>Lokasi Kerja</b></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="nama_lokasi" id="nama_lokasi" value="{{ DB::table('lokasi_kerja')->where('id',$admin->id_lokasikerja)->value('nama_lokasi') }}">
+            <input type="text" class="form-control" name="nama_lokasi" id="nama_lokasi" value="{{ DB::table('lokasi_kerja')->where('id',$admin->id_lokasikerja)->value('nama_lokasi') }}" disabled>
         </div>
     </div>
 

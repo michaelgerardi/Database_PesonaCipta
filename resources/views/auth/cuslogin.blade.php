@@ -36,7 +36,7 @@
         <div class="col">
             <div class="p-3">
             <div class="card" style="margin-top: 250px; margin-left:120px">
-                    <div class="card-header logincard">{{ __('Login') }}</div>
+                    <div class="card-header logincard">{{ __('Silahkan Login') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('customlogin') }}">
                             @csrf

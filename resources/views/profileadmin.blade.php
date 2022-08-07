@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <br>
-    <h3><b>Admin Profile</b></h3>
+    <h3><b>{{Auth::user()->nama_karyawan}} Profile</b>
+        <a href="{{ route('formeditadmin',['id' => $admin->id]) }}" type="button" class="btn btn-warning" style="margin-left:850px;">Edit</a></h3>
     <br>
 
 <input type="hidden" class="form-control" name="id" id="id" value="{{ $admin->id }}">
@@ -105,8 +106,5 @@
             <input type="text" class="form-control" name="divisi" id="divisi" value="{{ DB::table('divisi')->where('id',$admin->id_divisi)->value('divisi') }}" disabled>
         </div>
     </div>
-
-<a href="{{ route('formeditadmin',['id' => $admin->id]) }}" type="button" class="btn btn-warning">Edit</a>
-
 </div>
 @endsection

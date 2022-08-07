@@ -33,9 +33,9 @@
             {{-- Absen Masuk --}}
             <div class="tab-pane fade {{$tab1}}" id="nav-masuk" role="tabpanel" aria-labelledby="nav-masuk-tab">
                 <div class="card">
-                    <h5 class="card-header"><b>Absensi Jam Masuk</b></h5>
+                    <h5 class="card-header"><b>Presensi Masuk</b></h5>
                         <div class="card-body">
-                            <h5 class="card-title">Silahkan Masukan <b>Absensi Jam Masuk</b> sesuai dengan karyawan yang hadir di lokasi mitra Pesona Cipta</h5>
+                            <h5 class="card-title">Silahkan Masukan <b>Presensi Masuk</b> sesuai dengan karyawan yang hadir di lokasi mitra</i></b></h5>
                             <table class="table">
                                 <form action="{{route('absenmasuk')}}" method="post">
                                     {{csrf_field()}}
@@ -60,9 +60,11 @@
 
                                             <td>{{DB::table('jabatan')->where('id',DB::table('users')->where('id',$kar->id)->value('id_jabatan'))->value('gol_jabatan')}}</td>
 
-                                            <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
+                                            {{-- <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
+                                             --}}
+                                            <td><input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk[{{$loop->iteration}}]" value={{date("d-m-Y")}}></td>
 
-                                            <td><input type="time" class="form-control" id="jam_masuk" name="jam_masuk" value={{date("H:i:s")}}></td>
+                                            <td><input step="1" type="time" class="form-control" id="jam_masuk" name="jam_masuk[{{$loop->iteration}}]" value={{date("H:i:s")}}></td>
 
                                             <td><select class="form-select" aria-label="Default select example" name="status[{{$loop->iteration}}]" id="status">
                                                 <option selected>Pilih Kehadiran</option>
@@ -76,14 +78,14 @@
                                     </tbody>
                                     @endforeach
                             </table>
-                                <button type="submit" class="btn btn-primary" name="btnMasuk">Absen</button>
+                                <button type="submit" class="btn btn-primary" name="btnMasuk">Submit</button>
                         </form>
                         </div>
                 </div>
 
                 <br>
                 <div class="card">
-                    <h5 class="card-header">Daftar Absensi Masuk Divisi {{DB::table('divisi')->where('id',DB::table('users')->where('id',$kar->id)->value('id_divisi'))->value('divisi')}}</h5>
+                    <h5 class="card-header">Daftar Presensi Masuk Divisi <b>{{DB::table('divisi')->where('id',DB::table('users')->where('id',$kar->id)->value('id_divisi'))->value('divisi')}}</b> <b><i>{{DB::table('lokasi_kerja')->where('id',DB::table('users')->where('id',$kar->id)->value('id_lokasikerja'))->value('nama_lokasi')}}</i></b></h5>
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -104,15 +106,16 @@
                                     <td>{{$kar->nip}}</td>
                                     <td>{{$kar->nama_karyawan}}</td>
 
-                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('tanggal_masuk')}}</td>
+                                    {{-- <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('tanggal_masuk')}}</td> --}}
+                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('tanggal_masuk')}}</td>
 
-                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('jam_masuk')}}</td>
+                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('jam_masuk')}}</td>
 
-                                    @if (DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('status')==1)
+                                    @if (DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('status')==1)
                                         <td>Tepat Waktu</td>
-                                        @elseif(DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('status')==2)
+                                        @elseif(DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('status')==2)
                                             <td>Terlambat</td>
-                                        @elseif(DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('status')==3)
+                                        @elseif(DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('status')==3)
                                             <td>Cuti</td>
                                         @else <td>Absen</td>
                                     @endif
@@ -127,9 +130,9 @@
             {{-- Absen Pulang --}}
             <div class="tab-pane fade {{$tab2}}" id="nav-pulang" role="tabpanel" aria-labelledby="nav-pulang-tab">
                 <div class="card">
-                    <h5 class="card-header"><b>Absensi Jam Pulang</b></h5>
+                    <h5 class="card-header"><b>Presensi Pulang</b></h5>
                         <div class="card-body">
-                            <h5 class="card-title">Silahkan Masukan <b>Absensi Jam Pulang</b> sesuai dengan karyawan yang hadir di lokasi mitra Pesona Cipta</h5>
+                            <h5 class="card-title">Silahkan Masukan <b>Presensi Pulang</b> sesuai dengan karyawan yang hadir di lokasi mitra Pesona Cipta</h5>
                             <table class="table">
                                 <form action="{{route('absenpulang')}}" method="post">
                                     {{csrf_field()}}
@@ -138,7 +141,7 @@
                                             <th scope="col">No</th>
                                             <th scope="col">Nama Karyawan</th>
                                             <th scope="col">Jabatan</th>
-                                            <th scope="col">Tanggal Masuk</th>
+                                            <th scope="col">Tanggal Pulang</th>
                                             <th scope="col">Jam Pulang</th>
 
                                         </tr>
@@ -154,22 +157,23 @@
 
                                             <td>{{DB::table('jabatan')->where('id',DB::table('users')->where('id',$kar->id)->value('id_jabatan'))->value('gol_jabatan')}}</td>
 
-                                            <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
+                                            {{-- <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td> --}}
+                                            <td><input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
 
-                                            <td><input type="time" class="form-control" id="jam_keluar" name="jam_keluar" value={{date("H:i:s")}}></td>
+                                            <td><input step="1" type="time" class="form-control" id="jam_keluar" name="jam_keluar[{{$loop->iteration}}]" value={{date("H:i:s")}}></td>
                                         </tr>
                                     </tbody>
                                     @endforeach
                             </table>
                                 {{-- <input onClick="action.submit()" class="btn btn-primary" type="submit" value="Absen"> --}}
-                                <button type="submit" class="btn btn-primary" name="btnPulang">Absen</button>
+                                <button type="submit" class="btn btn-primary" name="btnPulang">Submit</button>
                         </form>
                         </div>
                 </div>
 
             <br>
                 <div class="card">
-                    <h5 class="card-header">Daftar Absensi Pulang Divisi {{DB::table('divisi')->where('id',DB::table('users')->where('id',$kar->id)->value('id_divisi'))->value('divisi')}}</h5>
+                    <h5 class="card-header">Daftar Presensi Pulang Divisi {{DB::table('divisi')->where('id',DB::table('users')->where('id',$kar->id)->value('id_divisi'))->value('divisi')}}</h5>
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -177,7 +181,7 @@
                                     <th scope="col">No</th>
                                     <th scope="col">NIP</th>
                                     <th scope="col">Nama Karyawan</th>
-                                    <th scope="col">Tanggal Masuk</th>
+                                    <th scope="col">Tanggal Pulang</th>
                                     <th scope="col">Jam Pulang</th>
                                     <th scope="col">Lembur</th>
                                 </tr>
@@ -194,7 +198,7 @@
 
                                     <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('jam_keluar')}}</td>
 
-                                    <td>Test Lembur</td>
+                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('lembur')}}</td>
                                 </tr>
                             </tbody>
                             @endforeach

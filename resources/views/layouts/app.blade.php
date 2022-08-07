@@ -100,10 +100,10 @@
                 </li>
                 @elseif (Auth::user()->id_jabatan == 2)
                 <li class = "nav-item">
-                    <a class= "nav-link active" href="/home">Home</a>
+                    <a class= "navbar-brand" href="/home">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="navbar-brand dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->nama_karyawan }}
                     </a>
 
