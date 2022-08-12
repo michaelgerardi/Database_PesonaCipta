@@ -52,6 +52,10 @@ class KaryawanController extends Controller
                 $data=Data_Gaji::whereIn('id',$histgaji)->pluck('id_karyawan');
                 $datagaji=User::whereNotIn('id',$data)->pluck('id');
             }
+
+            // $lokkerja=User::whereIn('id',$datagaji)->where([
+            //     ['id_lokasikerja',$request->nama_lokasi]
+            //     ])->get();
             
             $gaji=User::whereIn('id',$datagaji)->where([
                 ['id_divisi',$request->divisi]
@@ -62,8 +66,9 @@ class KaryawanController extends Controller
         }
 
         $data_divisi = Divisi::all();
+        // $lokkasikerja = Lokasi_Kerja::all();
         $his_gaji = History_Gaji::all();
-        return view('historygaji',compact('gaji','data_divisi','his_gaji','pieces'));
+        return view('historygaji',compact('gaji','data_divisi','his_gaji','pieces',));
         
         //return $gaji;
     }
@@ -194,7 +199,7 @@ class KaryawanController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $id = Auth::User()->id;
         // $tanggal = date("Y-m-d");
-        $time = date("H:i:s");
+        // $time = date("H:i:s");
         $id_pic = User::where('id',$id)->value('id');
         $i=1;
         foreach($request->id as $row)
@@ -221,7 +226,7 @@ class KaryawanController extends Controller
         // $tanggal = date("Y-m-d");
         $tanggal = $request->tanggal_masuk;
         // $timeGoHome = strtotime('17:00:00');
-        $timeGoHome = date("H:i:s");
+        // $timeGoHome = date("H:i:s");
         $id_pic = User::where('id',$id)->value('id');
         $i=1;
         foreach($request->id as $row1)
@@ -248,10 +253,18 @@ class KaryawanController extends Controller
     public function dataGajikar()
     {
         $id_karyawan = Auth::user()->id;
-        $datagaji = Data_Gaji::where('id_karyawan',$id_karyawan)->value('id');
-        $karyawan = Data_Gaji::where([['id',$datagaji]])->first();
-        $histogaji = History_Gaji::where('id_gaji_karyawan',$datagaji)->get();
-        return view ('datagajikar',compact('histogaji','datagaji','karyawan','id_karyawan'));
+        $datagaji = Data_Gaji::where('id_karyawan',$id_karyawan)->pluck('id');
+        // $karyawan = Data_Gaji::where('id',$datagaji)->first();
+        $histogaji = History_Gaji::whereIn('id_gaji_karyawan',$datagaji)->get();
+        return view ('datagajikar',compact('histogaji','datagaji','id_karyawan'));
         // return $histogaji;
+    }
+
+    public function pdfSlipGaji($id_gaji,$id_his)
+    {
+        $datagaji = Data_Gaji::where('id',$id_gaji)->first();
+        $pdf = PDF::loadView('/slipgaji',compact('datagaji','id_his'))->setPaper('a4','landscape');
+        return $pdf->stream('slipgaji.pdf');
+        // return $datagaji;
     }
 }

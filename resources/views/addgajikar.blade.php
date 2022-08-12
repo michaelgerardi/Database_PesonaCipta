@@ -6,7 +6,7 @@
     <input type="hidden" name="id" value="{{ $karyawan->id }}">
     <div class="container">
         <br>
-        <h3>Payroll Karyawan</h3>
+        <h3>Tambah Gaji</h3>
         <br>
 
         <div class="form-group row">
@@ -31,40 +31,19 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="gajipokok" class="col-sm-2 col-form-label"><b>Gaji Pokok</b></label>
-            <div class="col-sm-10">
-                <input type="text" onchange="myFunction()" class="form-control" name="gaji_pokok" id="gaji_pokok" placeholder="Isi dengan gaji pokok" value="0">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="gajitun" class="col-sm-2 col-form-label"><b>Gaji Tunjangan</b></label>
-            <div class="col-sm-10">
-                <input type="text" onchange="myFunction()" class="form-control" name="gaji_tunjangan" id="gaji_tunjangan" placeholder="Isi dengan gaji tunjangan" value="0">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="thr" class="col-sm-2 col-form-label"><b>THR</b></label>
-            <div class="col-sm-10">
-                <input type="text" onchange="myFunction()" class="form-control" name="thr" id="thr" placeholder="Isi dengan thr" value="0">
-            </div>
-        </div>
-
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label for="bpjs" class="col-sm-2 col-form-label"><b>BPJS</b></label>
             <div class="col-sm-10">
-                <input type="text" onchange="myFunction()" class="form-control" name="bpjs" id="bpjs" placeholder="Isi dengan BPJS" value="0">
+                <input type="text" class="form-control" name="bpjs" id="bpjs" value="{{$bpjs}}">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="totalgaji" class="col-sm-2 col-form-label"><b>Total Gaji</b></label>
+            <label for="gajipokok" class="col-sm-2 col-form-label"><b>Gaji Kotor</b></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="valtot" id="valtot">
+                <input type="text" class="form-control" name="gaji_pokok" id="gaji_pokok" value="$gajikotor">
             </div>
-        </div>
+        </div> --}}
 
         <div class="form-group row">
             <div class="col-sm-10">

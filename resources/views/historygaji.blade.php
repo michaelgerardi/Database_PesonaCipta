@@ -1,63 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <br>
-        <h3>Penggajian Karyawan</h3>
-        <br>
+    <div class="container">
+        <h3 style="margin-bottom: 10px">Penggajian Karyawan</h3>
+    </div>
 
-    <div class="row">
+        <div class="container" style="margin-bottom: 10px">
+        <form class=row action="{{route('historyGaji')}}" method="get">
+            <div class="col-md-2">
+                <label for="bulan" class="form-label">Bulan: </label>
+                    <input type="month" id="tanggal_gaji" value="{{date('Y-m')}}" name="tanggal_gaji">
+            </div>
 
-        <form action="{{route('historyGaji')}}" method="get">
-            <div class="row gx-3 gy-2 align-items-center">
-
-                <div class="col-sm">
-                    <label for="divisi" class="col-sm-2 col-form-label">Bulan:</label>
-                        <input type="month" id="tanggal_gaji" value="{{date('Y-m')}}" name="tanggal_gaji">
-                </div>
-
-                <div class="col-sm">
-                <label for="divisi" class="col-sm-2 col-form-label">Divisi:</label>
+            <div class="col-md-2">
+                <label for="divisi" class="form-label">Divisi:</label>
                 <select class="form-select" aria-label=".form-select-sm example" name="divisi" id="divisi">
                     @foreach($data_divisi as $div)
                         <option value="{{$div->id}}">{{$div->divisi}}</option>
                     @endforeach
                 </select>
-                </div>
-
-                {{-- <div class="col-sm">
-                    <label for="lokasi" class="col-sm-2 col-form-label">Lokasi Mitra:</label>
-                    <select class="form-select" aria-label=".form-select-sm example" name="lokasi_mitra" id="lokasi_mitra">
-                        @foreach()
-                            <option value="#"></option>
-                        @endforeach
-                    </select>
-                </div> --}}
-
-                <div class="col-sm">
-                    <label for="status_gaji" class="col-sm-2 col-form-label">Status Penggajian:</label>
-                    <select class="form-select" aria-label=".form-select-sm example" name="statgaji" id="statgaji">
-                        <option value="1">Sudah Digaji</option>
-                        <option value="2">Belum Digaji</option>
-                    </select>
-                </div>
-
-                <div class="col-sm">
-                    <button class="btn btn-primary" type="submit">Search</button>
-                    <a href="{{route('historyGaji')}}" class="btn btn-danger" role="button">Clear</a>
-                </div>
             </div>
 
+            <div class="col-md-2">
+                <label for="lokasi" class="form-label">Lokasi Mitra:</label>
+                <select class="form-select" aria-label=".form-select-sm example" name="lokasi_mitra" id="lokasi_mitra">
+                    <option value="">Pesona Cipta</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label for="status_gaji" class="form-label">Status Penggajian:</label>
+                    <select class="form-select" aria-label=".form-select-sm example" name="statgaji" id="statgaji">
+                    <option value="1">Sudah Digaji</option>
+                    <option value="2">Belum Digaji</option>
+                    </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label" for="option"></label>
+                <br>
+                <button class="btn btn-primary" type="submit" style="margin-top: 8px">Search</button>
+                <a href="{{route('historyGaji')}}" class="btn btn-danger" role="button" style="margin-top: 8px">Clear</a>
             </div>
         </form>
-
-    </div>
-
-        <br>
-        <a href="{{route('downloaddatagaji')}}" type="button" class="btn btn-warning">Download Gaji</a>
-        <br>
-        <br>
-
+        </div>
+        
+        <div class="container-fluid">
+        {{-- <a href="{{route('downloaddatagaji')}}" type="button" class="btn btn-warning" style="margin-bottom: 10px">Download Gaji</a> --}}
         <table class="table">
             <thead class="thead">
                 <tr>

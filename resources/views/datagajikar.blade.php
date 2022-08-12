@@ -32,7 +32,7 @@
                     @endif
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$loop->iteration}}">Detail</button>
-                        <a class="btn btn-secondary" role="button" href="">Download Slip</a>
+                        <a href="{{route('downloadgaji', ['id_gaji' => $hj->id_gaji_karyawan, 'id_his' => 'SearchController@search'])}}" type="button" class="btn btn-warning">Download</a>
                     </td>
                 </tr>
             </tbody>
@@ -72,7 +72,7 @@
                                 <label for="gajipokok" class="col-sm-2 col-form-label"><b>Gaji Pokok</b></label>
                                 <div class="col-sm-10">
                                     <input type="hidden" class="form-control" name="id_gaji_karyawan" value="{{ $hj->id }}">
-                                    <input type="text" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{DB::table('data_gaji')->where('id',$hj->$karyawan)->value('gaji_pokok')}}" disabled>
+                                    <input type="text" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}}" disabled>
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            {{-- <a href="/formpaklarin/{{$hj->id}}" type="button" class="btn btn-primary">Download Paklarin</a> --}}
+                            {{-- <a href="/downloadgaji/{{$hj->id_gaji_karyawan}}" type="button" class="btn btn-warning">Download</a> --}}
                         </div>
                     </div>
                 </div>

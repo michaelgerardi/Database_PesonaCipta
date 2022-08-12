@@ -48,6 +48,8 @@ Route::get('historygaji/export/',[App\Http\Controllers\KaryawanController::class
 
 Route::get('datagajikar/',[App\Http\Controllers\KaryawanController::class, 'dataGajikar'])->name('tabledatagajikar');
 
+Route::get('/pdfSlipGaji/{id_gaji}/{id_his}', [App\Http\Controllers\KaryawanController::class, 'pdfSlipGaji'])->name('downloadgaji');
+
 //Lokasi Kerja
 Route::get('/lokkerja', [App\Http\Controllers\AdminController::class, 'lokKerja'])->name('lokkerja');
 

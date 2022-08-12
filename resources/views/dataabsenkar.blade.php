@@ -26,7 +26,7 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link {{$active1}}" id="nav-masuk-tab" data-bs-toggle="tab" data-bs-target="#nav-masuk" type="button" role="tab" aria-controls="nav-masuk" aria-selected="{{$aria1}}">Masuk</button>
                 <button class="nav-link {{$active2}}" id="nav-pulang-tab" data-bs-toggle="tab" data-bs-target="#nav-pulang" type="button" role="tab" aria-controls="nav-pulang" aria-selected="{{$aria2}}">Pulang</button>
-                <button class="nav-link" id="nav-lembur-tab" data-bs-toggle="tab" data-bs-target="#nav-lembur" type="button" role="tab" aria-controls="nav-lembur" aria-selected="false">Lembur</button>
+                {{-- <button class="nav-link" id="nav-lembur-tab" data-bs-toggle="tab" data-bs-target="#nav-lembur" type="button" role="tab" aria-controls="nav-lembur" aria-selected="false">Lembur</button> --}}
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -105,8 +105,6 @@
                                     <th scope="row">{{$loop->iteration}}</th>
                                     <td>{{$kar->nip}}</td>
                                     <td>{{$kar->nama_karyawan}}</td>
-
-                                    {{-- <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('tanggal_masuk')}}</td> --}}
                                     <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('tanggal_masuk')}}</td>
 
                                     <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('jam_masuk')}}</td>
@@ -194,11 +192,11 @@
                                     <td>{{$kar->nip}}</td>
                                     <td>{{$kar->nama_karyawan}}</td>
 
-                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('tanggal_masuk')}}</td>
+                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('tanggal_masuk')}}</td>
 
-                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('jam_keluar')}}</td>
+                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('jam_keluar')}}</td>
 
-                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')],['tanggal_masuk',date('Y-m-d')]])->value('lembur')}}</td>
+                                    <td>{{DB::table('kehadiran')->where([['id_karyawan',DB::table('users')->where('id',$kar->id)->value('id')]])->latest()->value('lembur')}}</td>
                                 </tr>
                             </tbody>
                             @endforeach
@@ -208,7 +206,7 @@
             </div>
 
             {{-- lembur --}}
-            <div class="tab-pane fade {{$tab2}}" id="nav-lembur" role="tabpanel" aria-labelledby="nav-lembur-tab">
+            {{-- <div class="tab-pane fade {{$tab2}}" id="nav-lembur" role="tabpanel" aria-labelledby="nav-lembur-tab">
                 <div class="card">
                     <h5 class="card-header"><b>Absensi Lembur Karyawan</b></h5>
                         <div class="card-body">
@@ -259,7 +257,7 @@
                         </form>
                         </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     </div>

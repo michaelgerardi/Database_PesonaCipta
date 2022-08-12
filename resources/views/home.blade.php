@@ -332,44 +332,84 @@
                     </div>
                 </div>
             </div>
+        </div>
 
                 @elseif (Auth::user()->id_jabatan == 1)
 
                 <h3><b>Selamat Datang {{Auth::user()->nama_karyawan}}</b></h3>
-                
-                <div class="container-fluid">
-                <div class="row-g-3">
+                <div class="container">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-bottom: 30px;">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active align-items-center flex-column p-4">
+                            <img src="image/test.png" class="d-block w-100" alt="first_slide">
+                            </div>
+                            <div class="carousel-item align-items-center flex-column p-4">
+                            <img src="image/img2.png" class="d-block w-100" alt="second_slide">
+                            </div>
+                            <div class="carousel-item align-items-center flex-column p-4">
+                            <img src="image/img3.png" class="d-block w-100" alt="third_slide">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="container">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <!-- <img src="" class="card-img-top" alt=""> -->
+                            <div class="card-body">
+                                <h5 class="card-title">Penggajian Karyawan</h5>
+                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman penggajian karyawan</p>
+                                <a href="{{route('historyGaji')}}" class="btn btn-primary">Pilih</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Data Karyawan</h5>
+                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data karyawan</p>
+                                <a href="" type="button" class="btn btn-primary">Pilih</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
-                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman penggajian {{Auth::user()->nama_karyawan}}</p>
-                                <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Lihat</a>
+                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
+                                <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
                             </div>
                         </div>
                     </div>
+                    
+                </div>
+            </div>
 
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <img src="" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">Data Gaji Karyawan</h5>
-                                    <a href="{{route('historyGaji')}}" class="btn btn-primary">Lihat</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Data Rawon</h5>
-                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman anjing rawon</p>
-                                <a href="" type="button" class="btn btn-primary">Lihat</a>
-                            </div>
+            @elseif (Auth::user()->id_jabatan == 3)
+            <div class="container">
+                <h3><b>Selamat Datang {{Auth::user()->nama_karyawan}}</b></h3>
+            </div>
+            <div class="container">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
+                            <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         @endif
 </div>
