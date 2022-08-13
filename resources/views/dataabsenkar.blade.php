@@ -264,7 +264,7 @@
         @else
         <br>
         <table class="table table-striped">
-            <h5 class="card-header">Daftar Absensi Masuk <b>{{$karyawan->nama_karyawan}}</b></h5>
+            <h5 class="card-header">Daftar Absensi Masuk <b></b></h5>
             <thead>
                 <tr>
                     <th scope="col">No</th>

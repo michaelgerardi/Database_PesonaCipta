@@ -24,7 +24,9 @@
             <div class="col-md-2">
                 <label for="lokasi" class="form-label">Lokasi Mitra:</label>
                 <select class="form-select" aria-label=".form-select-sm example" name="lokasi_mitra" id="lokasi_mitra">
-                    <option value="">Pesona Cipta</option>
+                    @foreach ($lokkasikerja as $lokk)
+                        <option value="{{$lokk->id}}">{{$lokk->nama_lokasi}}</option>
+                    @endforeach
                 </select>
             </div>
 

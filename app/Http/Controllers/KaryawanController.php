@@ -53,9 +53,9 @@ class KaryawanController extends Controller
                 $datagaji=User::whereNotIn('id',$data)->pluck('id');
             }
 
-            // $lokkerja=User::whereIn('id',$datagaji)->where([
-            //     ['id_lokasikerja',$request->nama_lokasi]
-            //     ])->get();
+            $lokkerja=User::whereIn('id',$datagaji)->where([
+                ['id_lokasikerja',$request->nama_lokasi]
+                ])->get();
             
             $gaji=User::whereIn('id',$datagaji)->where([
                 ['id_divisi',$request->divisi]
@@ -63,14 +63,15 @@ class KaryawanController extends Controller
         }
         else{
             $gaji = User::all();
+            $lokkerja = User::all();
         }
 
         $data_divisi = Divisi::all();
-        // $lokkasikerja = Lokasi_Kerja::all();
+        $lokkasikerja = Lokasi_Kerja::all();
         $his_gaji = History_Gaji::all();
-        return view('historygaji',compact('gaji','data_divisi','his_gaji','pieces',));
+        return view('historygaji',compact('gaji','data_divisi','his_gaji','pieces','lokkerja','lokkasikerja'));
         
-        //return $gaji;
+        // return $gaji;
     }
 
     public function formGaji($id)

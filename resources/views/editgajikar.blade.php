@@ -34,28 +34,14 @@
             <label for="gajipokok" class="col-sm-2 col-form-label"><b>Gaji Pokok</b></label>
             <div class="col-sm-10">
                 <input type="hidden" class="form-control" name="id_gaji_karyawan" value="{{ $gaji->id }}">
-                <input type="text" onchange="myFunction()" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{$gaji->gaji_pokok}}">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="gajitun" class="col-sm-2 col-form-label"><b>Gaji Tunjangan</b></label>
-            <div class="col-sm-10">
-                <input type="text" onchange="myFunction()" class="form-control" name="gaji_tunjangan" id="gaji_tunjangan" value="{{$gaji->gaji_tunjangan}}">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="thr" class="col-sm-2 col-form-label"><b>THR</b></label>
-            <div class="col-sm-10">
-                <input type="text" onchange="myFunction()" class="form-control" name="thr" id="thr" placeholder="Isi dengan thr" value="{{$gaji->thr}}">
+                <input type="text" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{$gaji->gaji_pokok}}">
             </div>
         </div>
 
         <div class="form-group row">
             <label for="bpjs" class="col-sm-2 col-form-label"><b>BPJS</b></label>
             <div class="col-sm-10">
-                <input type="text" onchange="myFunction()" class="form-control" name="bpjs" id="bpjs" placeholder="Isi dengan BPJS" value="{{$gaji->bpjs}}">
+                <input type="text" class="form-control" name="bpjs" id="bpjs" placeholder="Isi dengan BPJS" value="{{$gaji->bpjs}}">
             </div>
         </div>
 

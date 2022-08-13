@@ -398,15 +398,27 @@
 
             @elseif (Auth::user()->id_jabatan == 3)
             <div class="container">
-                <h3><b>Selamat Datang {{Auth::user()->nama_karyawan}}</b></h3>
+                <h3 style="margin-bottom: 10px;"><b>Selamat Datang {{Auth::user()->nama_karyawan}}</b></h3>
             </div>
             <div class="container">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
-                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
-                            <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
+                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
+                                <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Data Presensi {{Auth::user()->nama_karyawan}}</h5>
+                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data presensi anda</p>
+                                <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Pilih</a>
+                            </div>
                         </div>
                     </div>
                 </div>
