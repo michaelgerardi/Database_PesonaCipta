@@ -46,18 +46,10 @@
         </div>
 
         <div class="form-group row">
-            <label for="totalgaji" class="col-sm-2 col-form-label"><b>Total Gaji</b></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="valtot" id="valtot">
-            </div>
-        </div>
-
-        <div class="form-group row">
             <div class="col-sm-10">
                 <input type="submit" class="btn btn-primary" value="Submit">
             </div>
         </div>
-
     </div>
 </form>
 @endsection

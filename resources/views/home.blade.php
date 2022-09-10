@@ -64,9 +64,39 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Daftar Absensi</h5>
+                    <h5 class="card-title">Daftar Absensi </h5>
                     <p class="card-text">Klik tombol di bawah untuk melihat absensi karyawan Pesona Cipta</p>
                     <a href="" type="button" class="btn btn-warning">Lihat</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
+                    <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
+                    <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
+                    <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
+                    <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Data Presensi {{Auth::user()->nama_karyawan}}</h5>
+                    <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data presensi anda</p>
+                    <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Pilih</a>
                 </div>
             </div>
         </div>
@@ -261,7 +291,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="masajabatan" class="col-sm-2 col-form-label"><b>Lokasi Kerja</b></label>
+                            <label for="lokasikerja" class="col-sm-2 col-form-label"><b>Lokasi Kerja</b></label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" name="id_lokasikerja" id="id_lokasikerja">
                                     <option selected>Lokasi Kerja</option>
@@ -321,13 +351,33 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Absensi</h5>
-                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman absensi</p>
-                            @if (Auth::user()->id_jabatan == 1)
-                                <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Lihat</a>
+                            <h5 class="card-title">Presensi</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman presensi</p>
+                            @if (Auth::user()->id_jabatan == 2)
+                                <a href="{{route('presensi')}}" type="button" class="btn btn-primary">Lihat</a>
                                 @else
-                                <a href="{{route('dataabsenkars')}}" type="button" class="btn btn-primary">Lihat</a>
+                                <a href="{{route('dataabsenkars')}}" type="button" class="btn btn-primary">Lihat</a>    
                             @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
+                            <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Presensi {{Auth::user()->nama_karyawan}}</h5>
+                            <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data presensi anda</p>
+                            <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Pilih</a>
                         </div>
                     </div>
                 </div>
@@ -373,7 +423,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Data Karyawan</h5>
@@ -381,7 +431,7 @@
                                 <a href="" type="button" class="btn btn-primary">Pilih</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-4">
                         <div class="card">
@@ -389,6 +439,16 @@
                                 <h5 class="card-title">Data Gaji {{Auth::user()->nama_karyawan}}</h5>
                                 <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data gaji anda</p>
                                 <a href="{{route('tabledatagajikar')}}" type="button" class="btn btn-primary">Pilih</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Data Presensi {{Auth::user()->nama_karyawan}}</h5>
+                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data presensi anda</p>
+                                <a href="{{route('dataabsenkar')}}" type="button" class="btn btn-primary">Pilih</a>
                             </div>
                         </div>
                     </div>
@@ -421,6 +481,16 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Data Absen Cuti {{Auth::user()->nama_karyawan}}</h5>
+                                <p class="card-text">Klik tombol di bawah untuk masuk ke dalam halaman data absen cuti anda</p>
+                                <a href="{{route('formcutipage')}}" type="button" class="btn btn-primary">Pilih</a>
+                            </div>
+                        </div>
+                    </div> --}}
                 </div>
             </div>
         @endif

@@ -23,7 +23,6 @@
                     <td>{{$hj->tanggal_gaji}}</td>
 
                     <td>Rp 
-                        {{-- {{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_tunjangan')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('thr')-DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}} --}}
                         {{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}} ,-
                     </td>
                     @if ($hj->status=1)
@@ -32,7 +31,7 @@
                     @endif
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$loop->iteration}}">Detail</button>
-                        <a href="{{route('downloadgaji', ['id_gaji' => $hj->id_gaji_karyawan, 'id_his' => 'SearchController@search'])}}" type="button" class="btn btn-warning">Download</a>
+                        <a href="{{route('downloadgaji', ['id_gaji' => $hj->id_gaji_karyawan, 'id_his' => $hj->id])}}" type="button" class="btn btn-warning">Download</a>
                     </td>
                 </tr>
             </tbody>
@@ -68,6 +67,21 @@
                                 </div>
                             </div>
 
+                            {{-- <div class="form-group row">
+                                <label for="gajipokok" class="col-sm-2 col-form-label"><b>Gaji Pokok</b></label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" class="form-control" name="id_gaji_karyawan" value="{{ $hj->id }}">
+                                    <input type="text" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}}" disabled>
+                                </div>
+                            </div> --}}
+
+                            <div class="form-group row">
+                                <label for="bpjs" class="col-sm-2 col-form-label"><b>Iuran BPJS</b></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="bpjs" id="bpjs" placeholder="Isi dengan BPJS" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('bpjs')}}" disabled>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label for="gajipokok" class="col-sm-2 col-form-label"><b>Gaji Pokok</b></label>
                                 <div class="col-sm-10">
@@ -76,21 +90,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="bpjs" class="col-sm-2 col-form-label"><b>BPJS</b></label>
-                                <div class="col-sm-10">
-                                    <input type="text" onchange="myFunction()" class="form-control" name="bpjs" id="bpjs" placeholder="Isi dengan BPJS" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('bpjs')}}" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label for="totalgaji" class="col-sm-2 col-form-label"><b>Total Gaji</b></label>
                                 <div class="col-sm-10">
-                                    {{-- <input type="text" class="form-control" name="valtot" id="valtot" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_tunjangan')+DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('thr')-DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('bpjs')}}" disabled> --}}
+                                    
                                     <input type="text" class="form-control" value="{{DB::table('data_gaji')->where('id',$hj->id_gaji_karyawan)->value('gaji_pokok')}}" disabled>
 
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <div class="modal-footer">

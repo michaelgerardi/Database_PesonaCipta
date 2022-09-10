@@ -229,6 +229,34 @@ class AdminController extends Controller
         return redirect('/listjabatan');
     }
 
+    //Data Jabatan
+    public function indexDivisi()
+    {
+        $divisi = Divisi::all();
+        return view ('divisi',compact('divisi'));
+    }
+
+    public function addDivisi(Request $request)
+    {
+        // $id_karyawan = Auth::user()->id;
+        $tamdiv = Divisi::where('id',$request->id)->value('id');
+        DB::table('divisi')->insert([
+            'divisi'=>$request->divisi,
+            'persen'=>$request->persen
+        ]);
+        return redirect('/divisi');
+    }
+
+    public function updateDivisi(Request $request)
+    {
+        $id = Divisi::where('id',$request->id)->value('id');
+        Divisi::where('id', $id)->update([
+            'divisi'=>$request->divisi,
+            'persen'=>$request->persen
+        ]);
+        return redirect('/divisi');
+    }
+
     // public function deleteJabatan($id)
     // {
     //     DB::table('lokasi_kerja')->where('id',$id)->delete();

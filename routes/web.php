@@ -72,6 +72,13 @@ Route::post('/listjabatan/addjabatan', [App\Http\Controllers\AdminController::cl
 
 Route::post('/listjabatan/updatejabatan', [App\Http\Controllers\AdminController::class, 'updateJabatan'])->name('upjabatan');
 
+//Divisi
+Route::get('/divisi', [App\Http\Controllers\AdminController::class, 'indexDivisi'])->name('listdivisi');
+
+Route::post('/listdivisi/adddivisi', [App\Http\Controllers\AdminController::class, 'addDivisi'])->name('addDiv');
+
+Route::post('/listdivisi/updatedivisi', [App\Http\Controllers\AdminController::class, 'updateDivisi'])->name('upDivisi');
+
 //Kontrak Kerja
 Route::get('/formkontrakkerja/{id}', [App\Http\Controllers\AdminController::class, 'kontrakKerja'])->name('formaddkontrakkerja');
 
@@ -93,6 +100,23 @@ Route::get('/dataabsenkars', [App\Http\Controllers\KaryawanController::class, 'l
 Route::post('/dataabsenkar/addMasuk', [App\Http\Controllers\KaryawanController::class, 'addMasuk'])->name('absenmasuk');
 
 Route::post('/dataabsenkar/addPulang', [App\Http\Controllers\KaryawanController::class, 'addPulang'])->name('absenpulang');
+
+Route::get('/formcuti', [App\Http\Controllers\KaryawanController::class, 'formCuti'])->name('formcutipage');
+
+
+//NEW Presensi
+Route::get('/presensipage', [App\Http\Controllers\KaryawanController::class, 'presensiSuper'])->name('presensi');
+
+Route::get('/dataabsenkars', [App\Http\Controllers\KaryawanController::class, 'lihatAbsen'])->name('dataabsenkars');
+
+Route::post('/presensipage/presenMasuk', [App\Http\Controllers\KaryawanController::class, 'presenMasuk'])->name('presenmasuk');
+
+Route::post('/presensipage/presenPulang', [App\Http\Controllers\KaryawanController::class, 'presenPulang'])->name('presenpulang');
+
+Route::get('/formcuti', [App\Http\Controllers\KaryawanController::class, 'formCuti'])->name('formcutipage');
+
+
+
 
 Auth::routes();
 

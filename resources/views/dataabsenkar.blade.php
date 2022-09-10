@@ -35,7 +35,7 @@
                 <div class="card">
                     <h5 class="card-header"><b>Presensi Masuk</b></h5>
                         <div class="card-body">
-                            <h5 class="card-title">Silahkan Masukan <b>Presensi Masuk</b> sesuai dengan karyawan yang hadir di lokasi mitra</i></b></h5>
+                            <h5 class="card-title">Silahkan Masukan <b>Presensi Masuk</b> sesuai dengan karyawan yang hadir di lokasi mitra</h5>
                             <table class="table">
                                 <form action="{{route('absenmasuk')}}" method="post">
                                     {{csrf_field()}}
@@ -60,8 +60,8 @@
 
                                             <td>{{DB::table('jabatan')->where('id',DB::table('users')->where('id',$kar->id)->value('id_jabatan'))->value('gol_jabatan')}}</td>
 
-                                            {{-- <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
-                                             --}}
+                                            {{-- <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}} readonly></td> --}}
+                                            
                                             <td><input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk[{{$loop->iteration}}]" value={{date("d-m-Y")}}></td>
 
                                             <td><input step="1" type="time" class="form-control" id="jam_masuk" name="jam_masuk[{{$loop->iteration}}]" value={{date("H:i:s")}}></td>
@@ -155,7 +155,8 @@
 
                                             <td>{{DB::table('jabatan')->where('id',DB::table('users')->where('id',$kar->id)->value('id_jabatan'))->value('gol_jabatan')}}</td>
 
-                                            {{-- <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td> --}}
+                                            {{-- <td><input type="date-now" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}} readonly></td> --}}
+
                                             <td><input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value={{date("d-m-Y")}}></td>
 
                                             <td><input step="1" type="time" class="form-control" id="jam_keluar" name="jam_keluar[{{$loop->iteration}}]" value={{date("H:i:s")}}></td>
@@ -262,9 +263,19 @@
 
     </div>
         @else
-        <br>
+        <h5 class="card-header">Daftar Absensi Masuk <b></b></h5>
+        {{-- <form class="row" action="" style="margin-top: 10px">
+            <div class="col-md-2">
+                <label for="bulan" class="form-label">Tanggal: </label>
+                    <input type="date" id="tanggal_masuk" value="{{date('Y-m-d')}}" name="tanggal_masuk">
+            </div>
+
+            <div class="col-md-2" style="margin-bottom: 10px">
+                <button class="btn btn-primary" type="submit" style="margin-top: 8px">Search</button>
+                <a href="" class="btn btn-danger" role="button" style="margin-top: 8px">Clear</a>
+            </div>
+        </form> --}}
         <table class="table table-striped">
-            <h5 class="card-header">Daftar Absensi Masuk <b></b></h5>
             <thead>
                 <tr>
                     <th scope="col">No</th>

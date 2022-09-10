@@ -25,7 +25,7 @@
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2{{$loop->iteration}}">
                             Edit
                           </button>
-                        <a href="#" type="button" class="btn btn-danger">Delete</a>
+                        {{-- <a href="#" type="button" class="btn btn-danger">Delete</a> --}}
                     </td>
                 </tr>
             </tbody>

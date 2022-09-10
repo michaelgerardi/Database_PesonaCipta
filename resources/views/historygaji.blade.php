@@ -23,7 +23,7 @@
 
             <div class="col-md-2">
                 <label for="lokasi" class="form-label">Lokasi Mitra:</label>
-                <select class="form-select" aria-label=".form-select-sm example" name="lokasi_mitra" id="lokasi_mitra">
+                <select class="form-select" aria-label=".form-select-sm example" name="nama_lokasi" id="nama_lokasi">
                     @foreach ($lokkasikerja as $lokk)
                         <option value="{{$lokk->id}}">{{$lokk->nama_lokasi}}</option>
                     @endforeach
@@ -67,7 +67,7 @@
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nip')}}</td>
                         <td>{{DB::table('users')->where('id',$gj->id)->value('nama_karyawan')}}</td>
-                        <td>{{DB::table('divisi')->where('id',$gj->id_divisi)->value('divisi') }}</td>
+                        <td>{{DB::table('divisi')->where('id',$gj->id_divisi)->value('divisi')}}</td>
                         <td>{{DB::table('jabatan')->where('id',$gj->id_jabatan)->value('gol_jabatan') }}</td>
                         @if (DB::table('history_gaji')->whereYear('tanggal_gaji',$pieces[0])->whereMonth('tanggal_gaji',$pieces[1])->whereIn('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->pluck('id'))->value('status')==1)
                             <td>Sudah Digaji</td>
@@ -75,16 +75,88 @@
                             <td>Belum Digaji</td>
                         @endif
                         <td>
-                            <a href="{{route('formaddgajikar',['id' => $gj->id])}}" type="button" class="btn btn-primary">Tambah</a>
+                            @if(DB::table('history_gaji')->whereYear('tanggal_gaji',$pieces[0])->whereMonth('tanggal_gaji',$pieces[1])->whereIn('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->pluck('id'))->value('status')==1)
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDetailGaji{{$loop->iteration}}">Detail</button>
+                            @else
+                                <a href="{{route('formaddgajikar',['id' => $gj->id])}}" type="button" class="btn btn-primary">Tambah</a>
+                            @endif
                             {{--  --}}
-                            @if (DB::table('history_gaji')->where('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('id'))->value('status')==1)
+                            {{-- @if (DB::table('history_gaji')->where('id_gaji_karyawan',DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('id'))->value('status')==1)
                                 <a href="{{route('formeditgajikar',['id' => $gj->id])}}" type="button" class="btn btn-warning">Edit</a>
                             @else
                                 <button href="{{route('formeditgajikar',['id' => $gj->id])}}" type="button" class="btn btn-warning" disabled>Edit</button>
-                            @endif
+                            @endif --}}
                         </td>
                     </tr>
                 </tbody>
+                <div class="modal fade" id="exampleModalDetailGaji{{$loop->iteration}}">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"  tabindex="-1">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail Gaji</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form>
+                            <div class="container">
+                                <div class="form-group row">
+                                    <label for="nip" class="col-sm-2 col-form-label"><b>NIP</b></label>
+                                    <div class="col-sm-10">
+                                        <input type="hidden" class="form-control" name="id" value="{{ $gj->id }}">
+                                        <input type="text" class="form-control" name="nip" id="nip" value="{{DB::table('users')->where('id',$gj->id)->value('nip')}}" disabled>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group row">
+                                    <label for="namakaryawan" class="col-sm-2 col-form-label"><b>Nama Karyawan</b></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="nama_karyawan" id="nama_karyawan" value="{{DB::table('users')->where('id',$gj->id)->value('nama_karyawan')}}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="divisi" class="col-sm-2 col-form-label"><b>Divisi</b></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="divisi" id="divisi" value="{{DB::table('divisi')->where('id',$gj->id_divisi)->value('divisi')}}" disabled>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group row">
+                                    <label for="jabatan" class="col-sm-2 col-form-label"><b>Jabatan</b></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="gol_jabatan" id="gol_jabatan" value="{{DB::table('jabatan')->where('id',$gj->id_jabatan)->value('gol_jabatan')}}" disabled>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group row">
+                                    <label for="masajabatan" class="col-sm-2 col-form-label"><b>Lokasi Kerja</b></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="lokasikkerja" id="lokkasikera" value="{{DB::table('lokasi_kerja')->where('id',$gj->id_lokasikerja)->value('nama_lokasi')}}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="masajabatan" class="col-sm-2 col-form-label"><b>Iuran BPJS</b></label>
+                                    <div class="col-sm-10">
+                                        {{-- <input type="hidden" class="form-control" name="id_karyawan" value="{{$gj->id}}"> --}}
+                                        <input type="text" class="form-control" name="bpjs" id="bpjs" value="{{DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('bpjs')}}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="masajabatan" class="col-sm-2 col-form-label"><b>Total Gaji</b></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="gaji_pokok" id="gaji_pokok" value="{{DB::table('data_gaji')->where('id_karyawan',$gj->id)->value('gaji_pokok')}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         </table>
     </div>

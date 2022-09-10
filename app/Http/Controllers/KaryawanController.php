@@ -14,6 +14,7 @@ use App\Models\Kehadiran;
 use App\Models\Data_Gaji;
 use App\Models\History_Gaji;
 use App\Models\Lokasi_Kerja;
+use App\Models\Presensi;
 use Auth;
 use PDF;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
@@ -36,7 +37,8 @@ class KaryawanController extends Controller
         $id_kar = Auth::user()->id;
         // $id = User::where('id',$id_kar)->value('id');
         $kary = User::all();
-        return view('datakar',compact('id_kar','kary'));
+        $lokasi = Lokasi_Kerja::all();
+        return view('datakar',compact('id_kar','kary','lokasi'));
         // return $kary;
     }
 
@@ -52,24 +54,20 @@ class KaryawanController extends Controller
                 $data=Data_Gaji::whereIn('id',$histgaji)->pluck('id_karyawan');
                 $datagaji=User::whereNotIn('id',$data)->pluck('id');
             }
-
-            $lokkerja=User::whereIn('id',$datagaji)->where([
-                ['id_lokasikerja',$request->nama_lokasi]
-                ])->get();
             
             $gaji=User::whereIn('id',$datagaji)->where([
-                ['id_divisi',$request->divisi]
+                ['id_divisi',$request->divisi],
+                ['id_lokasikerja',$request->nama_lokasi]
                 ])->get();
         }
         else{
             $gaji = User::all();
-            $lokkerja = User::all();
         }
 
         $data_divisi = Divisi::all();
         $lokkasikerja = Lokasi_Kerja::all();
         $his_gaji = History_Gaji::all();
-        return view('historygaji',compact('gaji','data_divisi','his_gaji','pieces','lokkerja','lokkasikerja'));
+        return view('historygaji',compact('gaji','data_divisi','his_gaji','pieces','lokkasikerja'));
         
         // return $gaji;
     }
@@ -81,7 +79,7 @@ class KaryawanController extends Controller
         // return $karyawan;
     }
 
-    public function addGaji(Request $request)
+    public function addGaji1(Request $request)
     {
         $user = User::where('id',$request->id)->first();
         $gaji=Lokasi_Kerja::where("id",$user->id_lokasikerja)->value('umr');
@@ -129,6 +127,34 @@ class KaryawanController extends Controller
         return redirect('/historygaji');
         // return $gajibulanbersih;
     }
+    public function addGaji(Request $request)
+    {
+        $user = User::where('id',$request->id)->first();
+        $gaji=Lokasi_Kerja::where("id",$user->id_lokasikerja)->value('umr');
+        $jabatan=Jabatan::where("id",$user->id_jabatan)->value('persentase');
+        $divisi=Divisi::where("id",$user->id_divisi)->value('persen');
+        $presensi=Presensi::where("id_karyawan",$user->id)->whereMonth('tanggal_masuk', date("m", strtotime($request->tanggal_gaji)))->count('id');
+        $gjpokok=($gaji*$divisi)+$gaji;
+        $jht=$gjpokok*0.02;
+        $ttgj=$gjpokok-$jht;
+        $ttgj30=round(($ttgj*$jabatan)+$ttgj);
+        $ttgjharian= round($ttgj30/30);
+        $gaji=$ttgjharian*$presensi;
+        DB::table('data_gaji')->insert([
+            'id_karyawan'=>$request->id,
+            'gaji_pokok'=>$gaji,
+            'bpjs'=>$jht,
+        ]);
+        $id_gaji = Data_Gaji::where('id_karyawan',$request->id)->latest('created_at')->value('id');
+        DB::table('history_gaji')->insert([
+            'tanggal_gaji'=>$request->tanggal_gaji,
+            'status'=> '1',
+            'id_gaji_karyawan'=>$id_gaji //kiri masuk ke kolom tabel, kanan data inputan
+        ]);
+        //return date("m", strtotime($request->tanggal_gaji));
+        //return $gaji;
+        return redirect('/historygaji');
+    }
 
     public function formEditGaji($id)
     {
@@ -146,8 +172,6 @@ class KaryawanController extends Controller
         DB::table('data_gaji')->where('id',$request->id_gaji_karyawan)->update([
             'id_karyawan'=>$request->id,
             'gaji_pokok'=>$request->gaji_pokok,
-            'gaji_tunjangan'=>$request->gaji_tunjangan,
-            'thr'=>$request->thr,
             'bpjs'=>$request->bpjs,
         ]);
         $id_gaji = Data_Gaji::where('id_karyawan',$request->id)->latest('created_at')->value('id');
@@ -174,6 +198,14 @@ class KaryawanController extends Controller
     //karyawan biasa
      public function dataAbsenKar()
      {
+        // $pieces = explode("-",date('Y-m-d'));
+        // if (count($request->all())>0) {
+        //     $pieces = explode("-", $request->tanggal_masuk);
+        //     $kehadiran=Kehadiran::whereYear('tanggal_masuk',$pieces[0])->whereMonth('tanggal_gaji',$pieces[1])->whereDay('tanggal_masuk',$pieces[2])->pluck('id_karyawan');
+        // } else{
+
+        // }
+
          $id_karyawan = Auth::user()->id;
          $divisi = User::where('id',$id_karyawan)->value('id_divisi');
          $karyawan = User::where([['id_divisi',$divisi],['id',$id_karyawan]])->first();
@@ -224,7 +256,7 @@ class KaryawanController extends Controller
     {
         date_default_timezone_set('Asia/Jakarta');
         $id = Auth::User()->id;
-        // $tanggal = date("Y-m-d");
+        $tanggal = date("Y-m-d");
         $tanggal = $request->tanggal_masuk;
         // $timeGoHome = strtotime('17:00:00');
         // $timeGoHome = date("H:i:s");
@@ -249,6 +281,19 @@ class KaryawanController extends Controller
       
         //  return $request->id[5];
     }
+    
+    public function formCuti()
+    {
+        // $karcuti = User::where('id',$id)->first();
+        // return view('cutipage',compact('karcuti'));
+        // return $karcuti;
+        return view('cutipage');
+    }
+
+    public function submitCuti()
+    {
+        return redirect('/formcuti');
+    }
 
     //Penggajian
     public function dataGajikar()
@@ -266,6 +311,61 @@ class KaryawanController extends Controller
         $datagaji = Data_Gaji::where('id',$id_gaji)->first();
         $pdf = PDF::loadView('/slipgaji',compact('datagaji','id_his'))->setPaper('a4','landscape');
         return $pdf->stream('slipgaji.pdf');
-        // return $datagaji;
+        // return $id_his;
+    }
+
+    //PRESENSI BARU
+    public function presensiSuper()
+    {
+        $idkar = Auth::user()->id;
+        $divisi = User::where('id',$idkar)->value('id_divisi');
+        $karyawan = User::where([['id_divisi',$divisi]])->get();
+        $karyawanid = User::where([['id_divisi',$divisi]])->pluck('id');
+        $presensi = Presensi::whereIn('id_karyawan',$karyawanid)->get();
+        return view ('presensi',compact('karyawan','presensi'));
+        // return $karyawan;
+        // return view('presensi');
+    }
+
+    public function presenMasuk(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $id = Auth::User()->id;
+        // $tanggal = date("Y-m-d");
+        $id_pic = User::where('id',$id)->value('id');
+        $c= count($request->id);
+        for ($i=1; $i <= $c; $i++) 
+        {
+            $presenMasuk = new Presensi([
+                'id_karyawan' => $request->id[$i],
+                'tanggal_masuk' => $request->tanggal_masuk[$i],
+                'presen_masuk' => $request->presen_masuk[$i]
+            ]);
+            
+            $presenMasuk->save();
+            
+        }
+        //return $i;
+        // return $c;
+         return redirect("/presensipage");
+    }
+
+    public function presenPulang(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $id = Auth::User()->id;
+        // $tanggal = date("Y-m-d");
+        $id_pic = User::where('id',$id)->value('id');
+        $tanggal = $request->tanggal_masuk;
+        $c= count($request->id);
+        for ($i=1; $i <= $c; $i++) 
+        {
+            Presensi::where([['id_karyawan',$request->id[$i]],['tanggal_masuk',$tanggal]])->update([
+                // 'jam_keluar' => $timeGoHome,
+                'presen_pulang' => $request->presen_pulang[$i],
+            ]);
+        }
+        // return $request;
+        return redirect ("/presensipage")->with('success');
     }
 }
